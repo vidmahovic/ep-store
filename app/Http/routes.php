@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', ['middleware' => 'auth', function() {
+Route::get('/', function() {
     return view('home');
-}]);
+});
 
 /*Route::group(['prefix' => 'aip/v1/'], function() {
     // list available API routes
     Route::post('products', 'api\v1\ProductApiController@index');
 });*/
-
 
 Route::resource('users', 'UserController');
 Route::post('users/{user}/deactivate', 'UserController@deactivate');

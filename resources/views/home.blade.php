@@ -1,45 +1,119 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
+<div class="container">
+    <div class="row">
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Welcome, {{ Auth::user()->name }} {{ Auth::user()->surname }}</div>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$24.99</h4>
+                    <h4><a href="#">First Product</a>
+                    </h4>
+                    <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">15 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                    </p>
+                </div>
             </div>
         </div>
-    </body>
-</html>
+
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$64.99</h4>
+                    <h4><a href="#">Second Product</a>
+                    </h4>
+                    <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">12 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$74.99</h4>
+                    <h4><a href="#">Third Product</a>
+                    </h4>
+                    <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">31 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$84.99</h4>
+                    <h4><a href="#">Fourth Product</a>
+                    </h4>
+                    <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">6 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="http://placehold.it/320x150" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">$94.99</h4>
+                    <h4><a href="#">Fifth Product</a>
+                    </h4>
+                    <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="ratings">
+                    <p class="pull-right">18 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
