@@ -15,6 +15,10 @@ Route::get('/', function() {
     return view('home');
 });
 
+Route::get('/user-settings', ['middleware' => 'auth', function() {
+    return view('user.user-settings');
+}]);
+
 /*Route::group(['prefix' => 'aip/v1/'], function() {
     // list available API routes
     Route::post('products', 'api\v1\ProductApiController@index');
