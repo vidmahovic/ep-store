@@ -1,45 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
+<div class="container">
+    <div class="row">
+        <h2>Izdelki</h2>
+        <hr>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+        <div class="col col-lg-12 products">
+            @foreach ($products as $product)
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+                <div class="col-sm-4 col-lg-4 col-md-4 products__item" data-id="{{ $product["id"] }}">
+                    <div class="thumbnail">
+                        <img src="{{ $product["image_path"] }}" alt="">
+                        <div class="caption">
+                            <h4 class="pull-right">24.99 Eur</h4>
+                            <h4>{{ $product["name"] }}</h4>
+                            <h4>{{ $product["manufacturer"] }}</h4>
+                            <h5>Količina {{$product["stock"]}}</h5>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+                        </div>
+                    </div>
+                </div>
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Welcome, {{ Auth::user()->name }} {{ Auth::user()->surname }}</div>
-            </div>
+            @endforeach
         </div>
-    </body>
-</html>
+    </div>
+</div>
+
+@endsection

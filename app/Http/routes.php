@@ -11,15 +11,20 @@
 |
 */
 
-Route::get('/', ['middleware' => 'auth', function() {
-    return view('home');
+Route::get('/', 'HomeController@index');
+
+Route::get('/user-settings', ['middleware' => 'auth', function() {
+    return view('user.user-settings');
+}]);
+
+Route::get('/cart', ['middleware' => 'auth', function() {
+    return view('user.cart');
 }]);
 
 /*Route::group(['prefix' => 'aip/v1/'], function() {
     // list available API routes
     Route::post('products', 'api\v1\ProductApiController@index');
 });*/
-
 
 Route::resource('users', 'UserController');
 Route::post('users/{user}/deactivate', 'UserController@deactivate');
