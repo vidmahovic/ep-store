@@ -9,10 +9,10 @@ class Product extends Model
 
 
     public function orders() {
-        return $this->belongsToMany('App\Order', 'orders_products')->withPivot('quantity');
+        return $this->belongsToMany(Order::class, 'orders_products')->withPivot('quantity');
     }
 
     public function voters() {
-        return $this->belongsToMany('App\Customer', 'votes')->withPivot('vote');
+        return $this->belongsToMany(Customer::class, 'votes')->withPivot('vote');
     }
 }

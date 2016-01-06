@@ -19,41 +19,6 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
-/*    public function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->setAttribute('userable_type', get_class($this));
-    }*/
-
-/*    public function newQuery()
-    {
-        $builder = parent::newQuery();
-        if ('App\User' !== get_class($this)) {
-            $builder->where('userable_type',"=",get_class($this));
-            if('App\Customer' === get_class($this)) {
-                $builder->with('customer');
-            }
-        }
-
-        return $builder;
-    }*/
-
-/*    public function newFromBuilder($attributes = [], $connection = null)
-    {
-        if ($attributes->userable_type) {
-            $class = $attributes->userable_type;
-            $instance = new $class;
-            $instance->exists = true;
-            $instance->setRawAttributes((array) $attributes, true);
-            return $instance;
-        } else {
-            return parent::newFromBuilder($attributes, $connection);
-        }
-
-
-    }*/
-
-
     /**
      * The database table used by the model.
      *
@@ -81,7 +46,6 @@ class User extends Model implements AuthenticatableContract,
     }
 
     // MUTATORS
-
     public function setPasswordAttribute($password) {
         $this->attributes['password'] = bcrypt($password);
     }

@@ -10,11 +10,11 @@ class Vote extends Model
     public $timestamps = true;
 
     public function voter() {
-        return $this->belongsTo('App\Customer', 'customer_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function product() {
-        return $this->belongsTo('App\Product', 'product_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
 }

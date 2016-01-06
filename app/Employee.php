@@ -7,22 +7,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    use SoftDeletes;
 
     protected $table = "employees";
 
     public $timestamps = false;
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
 
     public function log() {
-        return $this->morphOne('App\ActivityLog', 'subject');
+        return $this->morphOne(ActivityLog::class, 'subject');
     }
 
     public function orders() {
-        return $this->hasMany('App\Order', 'acquired_by');
+        return $this->hasMany(Order::class, 'acquired_by');
     }
 
 

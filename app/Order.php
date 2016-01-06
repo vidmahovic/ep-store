@@ -16,19 +16,19 @@ class Order extends Model
      * }
     */
     public function products() {
-        return $this->belongsToMany('App\Product', 'orders_products')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'orders_products')->withPivot('quantity');
     }
 
     public function acquirer() {
-        return $this->belongsTo('App\Employee', 'acquired_by');
+        return $this->belongsTo(Employee::class, 'acquired_by');
     }
 
     public function subscriber() {
-        return $this->belongsTo('App\Customer', 'ordered_by');
+        return $this->belongsTo(Customer::class, 'ordered_by');
     }
 
     public function state() {
-        return $this->belongsTo('App\OrderState', 'state_id');
+        return $this->belongsTo(OrderState::class, 'state_id');
     }
 
 

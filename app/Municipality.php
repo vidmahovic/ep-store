@@ -14,6 +14,6 @@ class Municipality extends Model
 
 
     public function residents() {
-        return $this->hasMany('App\Customer', 'city_id');
+        return $this->hasMany(Customer::class, 'city_id');
     }
 }

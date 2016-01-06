@@ -11,10 +11,10 @@ class Rating extends Model
 
 
     public function customers() {
-        return $this->belongsToMany('App\Customer');
+        return $this->belongsToMany(Customer::class);
     }
 
     public function products() {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany(Product::class);
     }
 }

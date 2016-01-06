@@ -16,23 +16,23 @@ class Customer extends Model
     protected $fillable = ['street', 'phone'];
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
 
     public function log() {
-        return $this->morphOne('App\ActivityLog', 'subject');
+        return $this->morphOne(ActivityLog::class, 'subject');
     }
 
     public function city() {
-        return $this->belongsTo('App\Municipality', 'city_id');
+        return $this->belongsTo(Municipality::class, 'city_id');
     }
 
     public function orders() {
-        return $this->hasMany('App\Order', 'ordered_by');
+        return $this->hasMany(Order::class, 'ordered_by');
     }
 
-    public function productVotes() {
-        return $this->belongsToMany('App\Product', 'votes')->withPivot('vote');
+    public function products() {
+        return $this->belongsToMany(Product::class, 'votes')->withPivot('vote');
     }
 
 

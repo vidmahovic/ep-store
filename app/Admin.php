@@ -14,11 +14,11 @@ class Admin extends Model
     public $timestamps = false;
 
     public function user() {
-        return $this->morphOne('App\User', 'userable');
+        return $this->morphOne(User::class, 'userable');
     }
 
     public function log() {
-        return $this->morphOne('App\ActivityLog', 'subject');
+        return $this->morphOne(ActivityLog::class, 'subject');
     }
 
 }
