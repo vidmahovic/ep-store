@@ -11,7 +11,7 @@ class EmployeesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Employee::class, 15)->create()->each(function ($employee) {
+        factory(App\Employee::class, 20)->create()->each(function ($employee) {
             $employee->user()->save(factory(App\User::class, 'employee')->make());
         });
     }

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vote extends Model
 {
 
+    public $timestamps = true;
+
     public function voter() {
         return $this->belongsTo('App\Customer', 'customer_id');
     }
