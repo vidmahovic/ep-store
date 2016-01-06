@@ -41,11 +41,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - set application key
     $ php artisan key:generate
 
-- run migrations
-    $ php artisan migrate
-
-- seed the database
-    $ php artisan db:seed
+- run migrations and seed DB tables
+    $ php artisan migrate --seed
 
 - if something goes wrong in the process, dump the autoload file
     $ php composer.phar dump-autoload
