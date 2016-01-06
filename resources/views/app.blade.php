@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel</title>
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
@@ -41,8 +42,9 @@
                     <li><a href="{{ url('/auth/register') }}">Registracija</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="{{ url('/user-settings') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                        <a href="{{url('/cart')}}">Košarica</a>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/user-settings') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a></li>
                             <li><a href="{{ url('/auth/logout') }}">Odjava</a></li>
                         </ul>
                     </li>
@@ -57,5 +59,6 @@
         <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="{{asset('/js/app.js')}}"></script>
 </body>
 </html>

@@ -5,23 +5,27 @@
     <div class="row">
         <h2>Izdelki</h2>
         <hr>
-        @for ($i = 0; $i < 6; $i++)
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/320x150" alt="">
-                    <div class="caption">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4><a href="#">{{$i}}. Product</a>
-                        </h4>
-                        <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+
+        <div class="col col-lg-12 products">
+            @foreach ($products as $product)
+
+                <div class="col-sm-4 col-lg-4 col-md-4 products__item" data-id="{{ $product["id"] }}">
+                    <div class="thumbnail">
+                        <img src="{{ $product["image_path"] }}" alt="">
+                        <div class="caption">
+                            <h4 class="pull-right">24.99 Eur</h4>
+                            <h4>{{ $product["name"] }}</h4>
+                            <h4>{{ $product["manufacturer"] }}</h4>
+                            <h5>Količina {{$product["stock"]}}</h5>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endfor
 
+            @endforeach
+        </div>
     </div>
 </div>
 

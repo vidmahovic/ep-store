@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', function() {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/user-settings', ['middleware' => 'auth', function() {
     return view('user.user-settings');
+}]);
+
+Route::get('/cart', ['middleware' => 'auth', function() {
+    return view('user.cart');
 }]);
 
 /*Route::group(['prefix' => 'aip/v1/'], function() {
