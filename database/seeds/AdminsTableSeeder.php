@@ -1,5 +1,7 @@
 <?php
 
+use App\Admin;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class AdminsTableSeeder extends Seeder
@@ -11,8 +13,14 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Admin::class, 1)->create()->each(function($admin) {
-            $admin->user()->save(factory(App\User::class, 'admin')->make());
-        });
+        $user = new User;
+        $user->name = 'Sudo';
+        $user->surname = 'Su';
+        $user->email = 'sudo.su@gmail.com';
+        $user->password = 'sudo123';
+        $user->save();
+        $admin = new Admin;
+        $admin->save();
+        $admin->user()->save($user);
     }
 }

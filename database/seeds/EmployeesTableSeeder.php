@@ -1,6 +1,10 @@
 <?php
 
+use App\Employee;
+use App\Municipality;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -12,7 +16,17 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         factory(App\Employee::class, 20)->create()->each(function ($employee) {
-            $employee->user()->save(factory(App\User::class, 'employee')->make());
+            $employee->user()->save(factory(User::class, 'employee')->create());
         });
+
+        $user = new User;
+        $user->name = 'Erik';
+        $user->surname = 'Drobne';
+        $user->email = 'erik.drobne@gmail.com';
+        $user->password = 'erik123';
+        $user->save();
+        $employee = new Employee;
+        $employee->save();
+        $employee->user()->save($user);
     }
 }

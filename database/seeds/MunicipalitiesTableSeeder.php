@@ -11,8 +11,6 @@ class MunicipalitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Municipality::class, 50)->create()->each(function($mun) {
-            $mun->residents()->save(factory(App\Customer::class)->make());
-        });
+        factory(App\Municipality::class, 50)->create();
     }
 }

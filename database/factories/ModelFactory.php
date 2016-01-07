@@ -55,9 +55,9 @@ $factory->define(App\Customer::class, function(Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\sl_SI\Address($faker));
 
     return [
-        'street' => $faker->address,
-        'phone' => $faker->phoneNumber,
-        'city_id' => factory(App\Municipality::class)->make()->id
+        'street' => strstr($faker->address, '\n', true),
+        'phone' => str_replace(' ', '', $faker->phoneNumber),
+        //'city_id' => factory(App\Municipality::class)->create()->id
     ];
 });
 
@@ -108,10 +108,3 @@ $factory->define(App\Vote::class, function(Faker\Generator $faker) use ($factory
         //'product_id' => $factory->create('App\Product')->id
     ];
 });
-
-// ORDERS_PRODUCTS SEEDER
-/*$factory->define(App\OrderProduct::class, function(Faker\Generator $faker) use($factory) {
-    return [
-        'quantity' => rand(1,40),
-    ];
-});*/
