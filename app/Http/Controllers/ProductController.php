@@ -13,6 +13,7 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,6 +25,7 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
@@ -35,8 +37,9 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * HTTP method: POST
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreProductRequest|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreProductRequest $request)
@@ -46,6 +49,7 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
+     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -57,6 +61,7 @@ class ProductController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -68,6 +73,7 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * HTTP method: PUT/PATCH
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -80,6 +86,7 @@ class ProductController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * HTTP method: DELETE
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

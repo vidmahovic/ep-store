@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,6 +23,7 @@ class UserController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,6 +34,7 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * HTTP method: POST
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -43,17 +46,19 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        return User::findOrFail($id);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -65,6 +70,7 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * HTTP method: PUT/PATCH
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -77,6 +83,8 @@ class UserController extends Controller
 
     /**
      * Activate a user by it's ID.
+     * HTTP method: POST
+     *
      * @param $id
      */
     public function activate($id) {
@@ -86,6 +94,8 @@ class UserController extends Controller
 
     /**
      * Deactivate a user by it's ID.
+     * HTTP method: POST
+     *
      * @param $id
      */
     public function deactivate($id) {
@@ -94,6 +104,7 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * HTTP method: DELETE
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
