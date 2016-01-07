@@ -13,25 +13,31 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/user-settings', ['middleware' => 'auth', function() {
-    return view('user.user-settings');
-}]);
 
-Route::get('/cart', ['middleware' => 'auth', function() {
-    return view('user.cart');
-}]);
 
+// API for Android
 /*Route::group(['prefix' => 'aip/v1/'], function() {
     // list available API routes
     Route::post('products', 'api\v1\ProductApiController@index');
 });*/
 
-Route::resource('users', 'UserController');
-Route::post('users/{user}/deactivate', 'UserController@deactivate');
-Route::post('users/{user}/activate', 'UserController@activate');
-Route::resource('products', 'ProductController');
-Route::post('products/{product}/deactivate', 'ProductController@deactivate');
-Route::post('products/{product}/activate', 'ProductController@activate');
+// id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
+// Calling convention (example): store.dev/1/users
+Route::group(['prefix' => '{id}', 'middleware' => 'auth'], function() {
+    Route::resource('users', 'UserController');
+    Route::post('users/{user}/deactivate', 'UserController@deactivate');
+    Route::post('users/{user}/activate', 'UserController@activate');
+    Route::resource('products', 'ProductController');
+    Route::post('products/{product}/deactivate', 'ProductController@deactivate');
+    Route::post('products/{product}/activate', 'ProductController@activate');
+    Route::get('/cart', function() {
+        return view('user.cart');
+    });
+    Route::get('/user-settings', function() {
+        return view('user.user-settings');
+    });
+});
+
 
 
 Route::controllers([
