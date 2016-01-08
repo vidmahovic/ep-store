@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 
 
 
@@ -23,7 +25,12 @@ Route::get('/', 'HomeController@index');
 
 // id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
 // Calling convention (example): store.dev/1/users
-Route::group(['prefix' => '{id}', 'middleware' => 'auth'], function() {
+
+Route::group(['prefix' => 'u/{id}', 'middleware' => 'auth'], function() {
+
+    Route::get('/', function() {
+       return '<h1>Welcome, '.Auth::user()->name.' '.Auth::user()->surname.'!</h1>';
+    });
     Route::resource('users', 'UserController');
     Route::post('users/{user}/deactivate', 'UserController@deactivate');
     Route::post('users/{user}/activate', 'UserController@activate');
