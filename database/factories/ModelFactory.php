@@ -86,11 +86,14 @@ $factory->define(App\Municipality::class, function(Faker\Generator $faker) {
 // PRODUCT TABLE SEEDER
 $factory->define(App\Product::class, function(Faker\Generator $faker) {
 
+    setlocale(LC_MONETARY, 'si_SI');
+
     return [
         'name' => str_random(20),
         'serial_num' => str_random(12),
         'manufacturer' => $faker->company,
         'stock' => rand(0, 100),
+        'price' => money_format('%.2n', (float) mt_rand(10, 5000) / 10)
     ];
 });
 

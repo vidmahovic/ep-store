@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('serial_num');
+            $table->double('price', 4, 2);
             $table->string('manufacturer');
             $table->string('image_path')->nullable();
             $table->integer('stock')->unsigned()->default(0);
