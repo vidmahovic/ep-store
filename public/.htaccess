@@ -13,4 +13,10 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    #Force SSL redirection
+    #RewriteCond %{HTTPS} !=on
+    #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    #Redirect permanent /u https://store.dev/u
 </IfModule>
