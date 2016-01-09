@@ -10,6 +10,8 @@ var epStore = {
 
             eventHandler: function() {
 
+                var _token = $('input[name="_token"]').val();
+
                 $('.products').on('click', '.products__item', function(e){
                     e.preventDefault();
 
@@ -19,11 +21,10 @@ var epStore = {
                         url: '/cart',
                         method: "PUT",
                         headers: {
-                            'X-CSRF-TOKEN': $(self).find('input[name="_token"]').val()
+                            'X-CSRF-TOKEN': _token
                         },
-                        dataType: 'json',
                         data: {
-                            id: $(this).attr('data-id')
+                            id: $(self).attr('data-id')
                         }
                     })
                 })
@@ -43,10 +44,38 @@ var epStore = {
 
         eventHandler: function() {
 
-            var $cartList = $('.cart-list');
+            var $cartList = $('.cart-list'),
+                _token = $('input[name="_token"]').val()
+            ;
 
             $cartList.on('click', '.cart-list__item .remove', function(e){
                 e.preventDefault();
+
+                var self = this;
+
+                $.ajax({
+                   url: '/cart',
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': _token
+                    },
+                    data: {
+                        id: $(this).parents('.cart-list__item').attr('data-id')
+                    }
+                }).done(function(){
+
+                    if($cartList.find('table tr').length > 2) {
+
+                        $(self).parents('tr').remove();
+                    }
+                    else {
+
+                        $cartList.remove();
+                    }
+
+                }).fail(function(){
+                    console.log('fail');
+                })
             })
         },
 

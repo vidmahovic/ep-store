@@ -99,27 +99,36 @@ class CartController extends Controller
         }
 
         $id = (string) $request->get('id');
-
         $values = [];
 
         if(! is_null($session->get('cart'))) {
             $values = $session->get('cart');
-            if(array_key_exists($id, $values)) {
-                $values[$id] = $values[$id] + 1;
-            }
         }
-        $values = $values + [$id => 1];
-        $session->put('cart', $values);
+
+        if(! array_key_exists($id, $values)) {
+            $values = $values + [$id => 1];
+            $session->put('cart', $values);
+        }
+
+        var_dump($session->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $session = $request->session();
+        $id = (string) $request->get('id');
+
+        var_dump($session->get('cart'));
+
+        $request->session()->forget('cart.'.$id);
+
+        //var_dump($session->get('cart'));
     }
 }

@@ -44,6 +44,8 @@ Route::get('/cart', 'CartController@index');
 
 Route::put('/cart', 'CartController@update');
 
+Route::delete('/cart', 'CartController@destroy');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     //'password' => 'Auth\PasswordController',
