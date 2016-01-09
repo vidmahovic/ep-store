@@ -93,7 +93,8 @@ $factory->define(App\Product::class, function(Faker\Generator $faker) {
         'serial_num' => str_random(12),
         'manufacturer' => $faker->company,
         'stock' => rand(0, 100),
-        'price' => money_format('%.2n', (float) mt_rand(10, 5000) / 10)
+        'price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 1000),
+        'image_path' => $faker->imageUrl(600, 400, 'technics')
     ];
 });
 

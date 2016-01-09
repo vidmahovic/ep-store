@@ -40,9 +40,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     });
 });
 
-Route::get('/cart', function() {
-    return view('user.cart');
-});
+Route::get('/cart', 'CartController@index');
 
 Route::put('/cart', 'CartController@update');
 
