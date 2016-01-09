@@ -75,20 +75,21 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $session = $request->session();
-        $id = $request->get('id');
+        if(! array_key_exists('cart', $session->all())) {
+            $session->put('cart');
+        }
 
-        //var_dump(array_key_exists('cart', $session->all()));
+        $id = (string) $request->get('id');
+
         $values = [];
 
-        if(array_key_exists('cart', $session->all())) {
+        if(! is_null($session->get('cart'))) {
             $values = $session->get('cart');
             if(array_key_exists($id, $values)) {
                 $values[$id] = $values[$id] + 1;
             }
-            else {
-                $values = array_merge($values, [$id => 1]);
-            }
         }
+        $values = $values + [$id => 1];
         $session->put('cart', $values);
 
         var_dump($session->all());
