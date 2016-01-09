@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Customer;
 use App\Events\CustomerWasRegistered;
+use App\Municipality;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,12 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers{
+        postRegister as traitPostRegister; // to extend a method from the trait
+    }
+    use ThrottlesLogins;
+
+    protected $redirectTo = '/user/';
 
     /**
      * Create a new authentication controller instance.
@@ -34,6 +40,16 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
+
+
+    /**
+     * TODO: Add functionality to send an email to registered user and prevent him from authenticating automatically
+     * @return mixed
+     */
+/*    public function postRegister() {
+        return $this->postRegister();
+    }*/
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -48,8 +64,9 @@ class AuthController extends Controller
             'surname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-            'phone' => 'required|max:9',
-            'street' => 'required|max:50',
+            'phone' => 'required|max:255',
+            'street' => 'required|max:100',
+            'city_id' => 'required|exists:municipalities,id'
         ]);
     }
 
