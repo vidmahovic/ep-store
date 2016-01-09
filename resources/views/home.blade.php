@@ -19,7 +19,9 @@
                             <h5>Količina {{$product["stock"]}}</h5>
                         </div>
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+                            {!! Form::open(['url' => 'cart', 'method' => 'PUT']) !!}
+                                <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

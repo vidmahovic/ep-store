@@ -9,9 +9,23 @@ var epStore = {
         products: {
 
             eventHandler: function() {
+
                 $('.products').on('click', '.products__item', function(e){
                     e.preventDefault();
 
+                    var self = this;
+
+                    $.ajax({
+                        url: '/cart',
+                        method: "PUT",
+                        headers: {
+                            'X-CSRF-TOKEN': $(self).find('input[name="_token"]').val()
+                        },
+                        dataType: 'json',
+                        data: {
+                            id: $(this).attr('data-id')
+                        }
+                    })
                 })
             },
 
@@ -32,8 +46,7 @@ var epStore = {
             var $cartList = $('.cart-list');
 
             $cartList.on('click', '.cart-list__item .remove', function(e){
-
-                var productId = $(this).parents('.cart-list__item').attr('data-id');
+                e.preventDefault();
             })
         },
 

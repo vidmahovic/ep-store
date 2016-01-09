@@ -26,26 +26,25 @@ Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 // id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
 // Calling convention (example): store.dev/1/users
 
-Route::group(['prefix' => 'u/{id}', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
-    Route::get('/', function() {
-       return '<h1>Welcome, '.Auth::user()->name.' '.Auth::user()->surname.'!</h1>';
-    });
+    Route::get('/', 'HomeController@index');
     Route::resource('users', 'UserController');
     Route::post('users/{user}/deactivate', 'UserController@deactivate');
     Route::post('users/{user}/activate', 'UserController@activate');
     Route::resource('products', 'ProductController');
     Route::post('products/{product}/deactivate', 'ProductController@deactivate');
     Route::post('products/{product}/activate', 'ProductController@activate');
-    Route::get('/cart', function() {
-        return view('user.cart');
-    });
     Route::get('/user-settings', function() {
         return view('user.user-settings');
     });
 });
 
+Route::get('/cart', function() {
+    return view('user.cart');
+});
 
+Route::put('/cart', 'CartController@update');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

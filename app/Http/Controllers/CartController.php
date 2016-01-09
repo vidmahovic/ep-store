@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
-class UserController extends Controller
+class CartController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
-     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return User::all();
+        //
     }
 
     /**
      * Show the form for creating a new resource.
-     * HTTP method: GET
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,7 +34,6 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * HTTP method: POST
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -46,19 +45,17 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
-     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return User::findOrFail($id);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
-     * HTTP method: GET
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -70,41 +67,52 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * HTTP method: PUT/PATCH
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
+        $session = $request->session();
+        $id = $request->get('id');
 
-    /**
-     * Activate a user by it's ID.
-     * HTTP method: POST
-     *
-     * @param $id
-     */
-    public function activate($id) {
-        //
-    }
+        //var_dump(array_key_exists('cart', $session->all()));
+        $values = [];
 
+        if(array_key_exists('cart', $session->all())) {
+            $values = $session->get('cart');
+            if(array_key_exists($id, $values)) {
+                $values[$id] = $values[$id] + 1;
+            }
+            else {
+                $values = array_merge($values, [$id => 1]);
+            }
+        }
+        $session->put('cart', $values);
 
-    /**
-     * Deactivate a user by it's ID.
-     * HTTP method: POST
-     *
-     * @param $id
-     */
-    public function deactivate($id) {
-        //
+        var_dump($session->all());
+
+        //var_dump($session->all());
+
+        /*if(array_key_exists('cart', $session->all())) {
+            var_dump('ddasdad');
+            $values = $session->get('cart');
+
+            if(array_key_exists($id, $values)) {
+                $values[$id] = $values[$id] + 1;
+            }
+            array_merge($values, [$id => 1]);
+            var_dump($values);
+        } else {
+            $session->put('cart', [$id => 1]);
+        }*/
+
+        //dd($session->all());
     }
 
     /**
      * Remove the specified resource from storage.
-     * HTTP method: DELETE
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
