@@ -12,7 +12,7 @@ var epStore = {
 
                 var _token = $('input[name="_token"]').val();
 
-                $('.products').on('click', '.products__item', function(e){
+                $('.products').on('click', '#addToCart', function(e){
                     e.preventDefault();
 
                     var self = this;
@@ -24,7 +24,7 @@ var epStore = {
                             'X-CSRF-TOKEN': _token
                         },
                         data: {
-                            id: $(self).attr('data-id')
+                            id: $(self).parents('.products__item').attr('data-id')
                         }
                     })
                 })
