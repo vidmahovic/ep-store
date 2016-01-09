@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Admin extends Model
 {
-    use SoftDeletes;
-
     protected $table = "admins";
 
     public $timestamps = false;
