@@ -11,6 +11,13 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('employee');
+    }
+
+
     /**
      * Display a listing of the resource.
      * HTTP method: GET

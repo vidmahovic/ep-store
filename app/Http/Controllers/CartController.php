@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,6 +13,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class CartController extends Controller
 {
 
+    protected $collection;
+
+    public function __construct(Collection $collection) {
+        $this->collection = $collection;
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -19,7 +27,18 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $quantities = [];
+
+        if(session('cart')) {
+            foreach(session('cart') as $key => $val) {
+                $this->collection->push(Product::find($key));
+                $quantities[$key] = $val;
+            }
+        }
+        return view('user.cart')->with([
+            'products' => $this->collection,
+            'quantities' => $quantities
+        ]);
     }
 
     /**
@@ -68,9 +87,9 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
     public function update(Request $request)
     {
@@ -91,25 +110,6 @@ class CartController extends Controller
         }
         $values = $values + [$id => 1];
         $session->put('cart', $values);
-
-        var_dump($session->all());
-
-        //var_dump($session->all());
-
-        /*if(array_key_exists('cart', $session->all())) {
-            var_dump('ddasdad');
-            $values = $session->get('cart');
-
-            if(array_key_exists($id, $values)) {
-                $values[$id] = $values[$id] + 1;
-            }
-            array_merge($values, [$id => 1]);
-            var_dump($values);
-        } else {
-            $session->put('cart', [$id => 1]);
-        }*/
-
-        //dd($session->all());
     }
 
     /**
