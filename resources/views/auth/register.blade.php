@@ -50,6 +50,13 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Mesto</label>
+                                <div class="col-md-6">
+                                    {!! Form::select('city_id', App\Municipality::lists('name', 'id'), null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-md-4 control-label">Telefonska številka</label>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">

@@ -18,17 +18,21 @@
                                 <h4 class="pull-right">{{ $product->price }} EUR</h4>
                                 <h4>{{ $product->name }}</h4>
                                 <h4>{{ $product->manufacturer }}</h4>
-                                <h5>Zaloga: {{ $product->stock }}</h5>
                             </div>
-                            <div class="text-center">
+                            <div class="text-left">
+                                <button type="button" class="btn btn-primary">Podrobnosti</button>
+                            </div>
+                            <div class="text-right">
                                 {!! Form::open(['url' => 'cart', 'method' => 'PUT']) !!}
-                                    <button type="button" class="btn btn-primary">Dodaj v košarico</button>
+                                    <button type="button" class="btn btn-success">Dodaj v košarico</button>
                                 {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
-
                 @endforeach
+                <div class="text-center">
+                    {!! $products->render() !!}
+                </div>
             @endif
         </div>
     </div>

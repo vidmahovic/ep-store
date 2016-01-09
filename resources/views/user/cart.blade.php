@@ -17,60 +17,29 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="cart-list__item" data-id="id">
-                        <td>47515654ghjfkgd</td>
-                        <td>iPhone</td>
-                        <td>Apple Inc.</td>
-                        <td>
-                            <select>
-                                <option value="1">1</option>
-                                <option value="2" selected="selected">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-danger btn-xs remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="cart-list__item" data-id="id">
-                        <td>47515654djhkfgkgd</td>
-                        <td>iMac</td>
-                        <td>Apple Inc.</td>
-                        <td>
-                            <select>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3" selected="selected">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-danger btn-xs remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="cart-list__item" data-id="id">
-                        <td>596548hdfgj5689</td>
-                        <td>macBook</td>
-                        <td>Apple Inc.</td>
-                        <td>
-                            <select>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4" selected="selected">4</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-danger btn-xs remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                            </div>
-                        </td>
-                    </tr>
+                        @if(! $products->isEmpty())
+                            @foreach($products as $product)
+                                <tr class="cart-list__item" data-id="{{ $product->id }}">
+                                    <td>{{  $product->serial_num }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->manufacturer }}</td>
+                                    <td>
+                                        <select>
+                                            @for ($i = 1; $i <= $product->stock ; $i++)
+                                                <option value="{{ $i }}" @if($i == $quantities[$product->id]) selected="selected" @endif>{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-danger btn-xs remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <p>Košarica je prazna.</p>
+                        @endif
                     </tbody>
                 </table>
                 <br>
