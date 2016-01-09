@@ -29,7 +29,8 @@ class StoreProductRequest extends Request
             'serial_num' => 'alpha_num|unique:products,serial_num',
             'manufacturer' => 'required|alpha_num|max:255',
             'image_path' => '',
-            'stock' => 'integer'
+            'stock' => 'integer',
+            'price' => 'required|'
         ];
     }
 }

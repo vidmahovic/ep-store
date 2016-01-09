@@ -31,8 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // Suggestion
-        //return view('products.create');
+        return view('products.create');
     }
 
     /**
@@ -44,7 +43,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+
     }
 
     /**

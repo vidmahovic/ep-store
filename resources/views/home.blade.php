@@ -6,6 +6,8 @@
         <h2>Izdelki</h2>
         <hr>
 
+        {!! Form::open() !!} {!! Form::close() !!}
+
         <div class="col col-lg-12 products">
             @foreach ($products as $product)
 

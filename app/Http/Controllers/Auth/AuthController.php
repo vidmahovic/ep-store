@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Customer;
 use App\Events\CustomerWasRegistered;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -24,8 +25,6 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    protected $redirectTo = "/user/";
 
     /**
      * Create a new authentication controller instance.
