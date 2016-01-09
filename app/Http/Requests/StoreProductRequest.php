@@ -30,7 +30,7 @@ class StoreProductRequest extends Request
             'manufacturer' => 'required|alpha_num|max:255',
             'image_path' => '',
             'stock' => 'integer',
-            'price' => 'required|'
+            'price' => 'required'
         ];
     }
 }
