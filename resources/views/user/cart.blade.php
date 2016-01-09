@@ -43,7 +43,11 @@
                     <br>
                     <br>
                     <br>
-                    <button class="btn btn-success pull-right">Oddaj naročilo</button>
+
+                    @if(Auth::user())
+                        <a href="{{url('/user/purchase')}}" class="btn btn-success pull-right">
+                            Oddaj naročilo</a>
+                    @endif
                     {!! Form::close() !!}
                 @else
                     <h4>Košarica je prazna.</h4>

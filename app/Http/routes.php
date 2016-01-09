@@ -35,6 +35,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::resource('products', 'ProductController');
     Route::post('products/{product}/deactivate', 'ProductController@deactivate');
     Route::post('products/{product}/activate', 'ProductController@activate');
+    Route::get('/purchase', 'PurchaseController@index');
     Route::get('/user-settings', function() {
         return view('user.user-settings');
     });
