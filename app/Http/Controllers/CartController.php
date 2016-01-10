@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Illuminate\Http\RedirectResponse;
 
 class CartController extends Controller
 {
@@ -18,7 +20,6 @@ class CartController extends Controller
     public function __construct(Collection $collection) {
         $this->collection = $collection;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -109,8 +110,6 @@ class CartController extends Controller
             $values = $values + [$id => 1];
             $session->put('cart', $values);
         }
-
-        var_dump($session->all());
     }
 
     /**
@@ -122,13 +121,7 @@ class CartController extends Controller
      */
     public function destroy(Request $request)
     {
-        $session = $request->session();
         $id = (string) $request->get('id');
-
-        var_dump($session->get('cart'));
-
         $request->session()->forget('cart.'.$id);
-
-        //var_dump($session->get('cart'));
     }
 }

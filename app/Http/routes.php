@@ -35,17 +35,18 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::resource('products', 'ProductController');
     Route::post('products/{product}/deactivate', 'ProductController@deactivate');
     Route::post('products/{product}/activate', 'ProductController@activate');
-    Route::get('/purchase', 'PurchaseController@index');
-    Route::get('/user-settings', function() {
+    Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
+    Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
+    Route::post('purchase/buy', 'PurchaseController@create');
+    Route::get('purchase/success', 'PurchaseController@success');
+    Route::get('user-settings', function() {
         return view('user.user-settings');
     });
 });
 
-Route::get('/cart', 'CartController@index');
-
-Route::put('/cart', 'CartController@update');
-
-Route::delete('/cart', 'CartController@destroy');
+Route::get('cart', 'CartController@index');
+Route::put('cart', 'CartController@update');
+Route::delete('cart', 'CartController@destroy');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

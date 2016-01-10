@@ -76,6 +76,62 @@ var epStore = {
                 }).fail(function(){
                     console.log('fail');
                 })
+            });
+
+            $cartList.on('click', '#purchase', function(e){
+                e.preventDefault();
+
+                var products = {},
+                    id,
+                    quantity
+                ;
+
+                $.each($cartList.find('.cart-list__item'), function() {
+
+                    id = $(this).attr('data-id');
+                    quantity = $(this).find('select').val();
+                    products[id] = quantity;
+                });
+
+                $.ajax({
+                    url: 'user/purchase',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': _token
+                    },
+                    data: {
+                        products: products
+                    }
+                }).done(function(){
+
+                    window.location.replace('user/purchase');
+                });
+            })
+        },
+
+        init: function() {
+            this.eventHandler();
+        }
+    },
+
+    purchase: {
+
+        eventHandler: function () {
+            var _token = $('input[name="_token"]').val()
+
+            $('#buy').on('click', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'purchase/buy',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': _token
+                    }
+                }).done(function(){
+
+                    window.location.replace('purchase/success');
+                });
             })
         },
 
@@ -85,7 +141,18 @@ var epStore = {
     },
 
     init: function() {
-        this.home.init();
-        this.cart.init();
+
+        switch($('section').attr('data-section')) {
+            case 'home':
+                this.home.init();
+                break;
+            case 'cart':
+                this.cart.init();
+                break;
+            case 'purchase':
+                this.purchase.init();
+                break;
+        }
+
     }
 };

@@ -1,15 +1,16 @@
 @extends('app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <h2>Izdelki</h2>
-        <hr>
-        <div class="col col-lg-12 products">
-            @if($products->isEmpty())
-                <h1>Ni izdelkov.</h1>
-            @else
-                {!! Form::open(['url' => 'cart', 'method' => 'PUT']) !!}
+<section data-section="home">
+    <div class="container">
+        <div class="row">
+            <h2>Izdelki</h2>
+            <hr>
+            <div class="col col-lg-12 products">
+                @if($products->isEmpty())
+                    <h1>Ni izdelkov.</h1>
+                @else
+                    {!! Form::open(['url' => 'cart']) !!}
                     @foreach ($products as $product)
 
                         <div class="col-sm-4 col-lg-4 col-md-4 products__item" data-id="{{ $product->id }}">
@@ -31,13 +32,13 @@
                             </div>
                         </div>
                     @endforeach
-                {!! Form::close() !!}
-                <div class="text-center">
-                    {!! $products->render() !!}
-                </div>
-            @endif
+                    {!! Form::close() !!}
+                    <div class="text-center">
+                        {!! $products->render() !!}
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-</div>
-
+</section>
 @endsection
