@@ -39,9 +39,16 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
     Route::post('purchase/buy', 'PurchaseController@create');
     Route::get('purchase/success', 'PurchaseController@success');
+    Route::get('my-orders', 'ActivityLogController@index');
     Route::get('user-settings', function() {
         return view('user.user-settings');
     });
+});
+
+Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {
+
+    Route::get('orders', 'OrdersController@index');
+    Route::get('orders/confirmed', 'OrdersController@confirmed');
 });
 
 Route::get('cart', 'CartController@index');

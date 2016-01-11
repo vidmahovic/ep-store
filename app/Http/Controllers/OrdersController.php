@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PurchaseController extends Controller
+class OrdersController extends Controller
 {
-
-    protected $collection;
-
-    public function __construct(Collection $collection) {
-        $this->collection = $collection;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,44 +16,38 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        if(session('cart')) {
-
-            $quantities = [];
-
-            foreach(session('cart') as $key => $val) {
-                $this->collection->push(Product::find($key));
-                $quantities[$key] = $val;
-            }
-            return view('user.purchase')->with([
-                'products' => $this->collection,
-                'quantities' => $quantities
-            ]);
-        }
+        return view('user.orders');
     }
 
     /**
-     * Make order
+     * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function confirmed()
     {
-        $session = $request->session();
-        $session->forget('cart');
+        return view('user.orders');
     }
 
     /**
-     * Put products and their quantities to session
+     * Show the form for creating a new resource.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-     * @internal param $products
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $session = $request->session();
-        $session->put('cart', $request->get('products'));
+        //
     }
 
     /**
@@ -108,15 +93,5 @@ class PurchaseController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function success()
-    {
-        return view('user.purchase-success');
     }
 }
