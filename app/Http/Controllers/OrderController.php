@@ -30,7 +30,7 @@ class OrderController extends Controller
     {
         if($status) {
 
-            $state_id = OrderState::where('name', $status)->first()->id;
+            $state_id = OrderState::where('name', $status)->processed(auth()->user()->id)->first()->id;
 
             return view('orders')->with([
 
