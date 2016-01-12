@@ -6,7 +6,13 @@
         <div class="container">
             <div class="col col-lg-12">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                @include('user.order.'.$orders->first()->state()->first()->name, ['orders' => $orders])
+                @if($orders->isEmpty())
+                    <h2>Ni naročil.</h2>
+                @else
+                    @foreach($orders as $order)
+                        <p>{{ $order }}</p><br>
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>

@@ -26,20 +26,11 @@ class OrderController extends Controller
      * @param null $status
      * @return \Illuminate\Http\Response
      */
-    public function index($status = null)
+    public function index()
     {
-        if($status) {
+        $orders = Order::processed(auth()->user()->id)->orderBy('created_at', 'desc')->get();
 
-            $state_id = OrderState::where('name', $status)->processed(auth()->user()->id)->first()->id;
-
-            return view('user.orders')->with([
-
-                'orders' => Order::where('state_id', $state_id)->orderBy('created_at', 'desc')->get()
-
-            ]);
-        }
-
-        return view('user.orders')->with('orders', Order::orderBy('created_at', 'desc'));
+        return view('user.orders')->with('orders', $orders);
     }
 
     /**

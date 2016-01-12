@@ -41,8 +41,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Naročilo <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('/user/orders', ['pending']) }}">Nepotrjena naročila</a></li>
-                                <li><a href="{{ url('/user/orders', ['confirmed']) }}">Potrjena naročila</a></li>
+                                <li><a href="{{ url('user/orders') }}">Seznam vseh naročil</a></li>
+                                {{--<li><a href="{{ url('user/orders', ['status' => 'pending']) }}">Nepotrjena naročila</a></li>
+                                <li><a href="{{ url('user/orders', ['status' => 'confirmed']) }}">Potrjena naročila</a></li>--}}
                             </ul>
                         </li>
                     @endif

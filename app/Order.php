@@ -38,7 +38,7 @@ class Order extends Model
 
 
     public function scopeProcessed($query) {
-        return $query->where('processed_by', null);
+        return $query->where('acquired_by', null);
     }
 
     public function scopeIsProcessed($query, $id) {

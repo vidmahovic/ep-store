@@ -29,21 +29,27 @@ Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
-    Route::resource('customers', 'CustomerController');
     Route::post('customers/{customers}/deactivate', 'CustomerController@deactivate');
     Route::post('customers/{customers}/activate', 'CustomerController@activate');
-    Route::resource('employees', 'EmployeeController');
-    Route::post('employees/{employees}/deactivate', 'EmployeeController@deactivate');
+    Route::resource('customers', 'CustomerController');
+
     Route::post('employees/{employees}/activate', 'EmployeeController@activate');
+    Route::post('employees/{employees}/deactivate', 'EmployeeController@deactivate');
+    Route::resource('employees', 'EmployeeController');
+
     Route::get('/', 'HomeController@index');
-    Route::resource('users', 'UserController');
-    Route::resource('orders', 'OrderController');
+
     Route::post('users/{users}/deactivate', 'UserController@deactivate');
     Route::post('users/{users}/activate', 'UserController@activate');
-    Route::resource('products', 'ProductController');
-    Route::post('products/{products}/deactivate', 'ProductController@deactivate');
-    Route::post('products/{products}/activate', 'ProductController@activate');
+    Route::resource('users', 'UserController');
+
+    /*Route::get('orders/{status}', 'OrderController@index');*/
     Route::resource('orders', 'OrderController');
+
+    Route::post('products/{products}/activate', 'ProductController@activate');
+    Route::post('products/{products}/deactivate', 'ProductController@deactivate');
+    Route::resource('products', 'ProductController');
+
     Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
     Route::post('purchase/buy', 'PurchaseController@create');
