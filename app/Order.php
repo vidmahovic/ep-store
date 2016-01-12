@@ -11,6 +11,8 @@ class Order extends Model
 
     protected $visible = ['id', 'ordered_by', 'acquired_by', 'created_at'];
 
+    protected $fillable = ['ordered_by', 'acquired_by', 'state_id'];
+
 
     /**
      * Calling convention in view to display quantity of a specific product in a specific order:
