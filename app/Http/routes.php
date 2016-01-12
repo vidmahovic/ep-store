@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 
@@ -28,10 +29,16 @@ Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
+    Route::resource('customers', 'CustomerController');
+    Route::post('customers/{customers}/deactivate', 'CustomerController@deactivate');
+    Route::post('customers/{customers}/activate', 'CustomerController@activate');
+    Route::resource('employees', 'EmployeeController');
+    Route::post('employees/{employees}/deactivate', 'EmployeeController@deactivate');
+    Route::post('employees/{employees}/activate', 'EmployeeController@activate');
     Route::get('/', 'HomeController@index');
     Route::resource('users', 'UserController');
-    Route::post('users/{user}/deactivate', 'UserController@deactivate');
-    Route::post('users/{user}/activate', 'UserController@activate');
+    Route::post('users/{users}/deactivate', 'UserController@deactivate');
+    Route::post('users/{users}/activate', 'UserController@activate');
     Route::resource('products', 'ProductController');
     Route::post('products/{product}/deactivate', 'ProductController@deactivate');
     Route::post('products/{product}/activate', 'ProductController@activate');
