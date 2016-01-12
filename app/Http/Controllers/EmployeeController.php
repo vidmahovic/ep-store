@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,7 +13,7 @@ class EmployeeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin', ['except' => ['show', 'edit', 'update']]);
     }
 
     /**
@@ -22,7 +23,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::with('user')->paginate(30);
+
+        return $employees;
     }
 
     /**
