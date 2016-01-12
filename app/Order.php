@@ -9,6 +9,9 @@ class Order extends Model
     protected $table = 'orders';
 
 
+    protected $visible = ['id', 'ordered_by', 'acquired_by', 'created_at'];
+
+
     /**
      * Calling convention in view to display quantity of a specific product in a specific order:
      * foreach($order->products() as $product) {
