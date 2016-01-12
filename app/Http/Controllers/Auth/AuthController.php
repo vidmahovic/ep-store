@@ -88,6 +88,7 @@ class AuthController extends Controller
         $customer = Customer::create([
             'street' => $data['street'],
             'phone' => $data['phone'],
+            'city_id' => $data['city_id']
         ]);
 
         $customer->user()->save($user);
