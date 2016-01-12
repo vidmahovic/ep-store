@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderState;
 use App\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -16,6 +19,8 @@ class PurchaseController extends Controller
 
     public function __construct(Collection $collection) {
         $this->collection = $collection;
+
+        $this->middleware('customer');
     }
 
     /**
@@ -48,8 +53,6 @@ class PurchaseController extends Controller
      */
     public function create(Request $request)
     {
-        $session = $request->session();
-        $session->forget('cart');
     }
 
     /**

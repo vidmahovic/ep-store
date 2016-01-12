@@ -13,6 +13,8 @@ class EmployeeController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
+        $this->middleware('employee', ['only' => ['show', 'edit', 'update']]);
         $this->middleware('admin', ['except' => ['show', 'edit', 'update']]);
     }
 

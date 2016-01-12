@@ -17,7 +17,9 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->middleware('employee', ['except' => ['show', 'edit', 'update']]);
+        $this->middleware('auth');
+        $this->middleware('employee', ['except' => ['edit', 'update']]);
+        $this->middleware('customer', ['only' => ['show', 'edit', 'update']]);
     }
 
     /**
@@ -45,7 +47,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreCustomerRequest|Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCustomerRequest $request)
@@ -76,8 +78,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        dd($customer);
-        return $customer->with('user');
+        return view('user.customer.profile')->with('customer', $customer);
     }
 
     /**

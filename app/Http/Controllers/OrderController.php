@@ -65,8 +65,6 @@ class OrderController extends Controller
         }
 
         $request->session()->forget('cart');
-
-        return true;
     }
 
     /**
