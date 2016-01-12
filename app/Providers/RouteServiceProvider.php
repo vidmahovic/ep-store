@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Customer;
+use App\Employee;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +27,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //$router->pattern('id', strtolower(Auth::user()->name).strtolower(Auth::user()->surname));
+
         parent::boot($router);
+
+        $router->model('customers', Customer::class);
+        $router->model('employees', Employee::class);
     }
 
     /**
