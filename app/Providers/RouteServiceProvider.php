@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Customer;
 use App\Employee;
+use App\Product;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $router->model('customers', Customer::class);
         $router->model('employees', Employee::class);
+        $router->model('products', Product::class);
     }
 
     /**
