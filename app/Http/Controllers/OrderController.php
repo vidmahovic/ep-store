@@ -2,13 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderState;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
+
+    public function __construct() {
+
+        $this->middleware('auth');
+        $this->middleware('customer', ['only' => ['show', 'store']]);
+        $this->middleware('employee', ['only' => ['index', 'update']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +27,9 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('user.orders');
+        $orders = Order::orderBy('created_at', 'desc');
+
+        return view('user.orders')->with('orders', $orders);
     }
 
     /**
@@ -30,16 +43,6 @@ class OrdersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,7 +50,23 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cart = $request->session()->get('cart');
+        $customer = auth()->user();
+
+        $order = Order::create([
+            'ordered_by' =>  $customer->id,
+            'state_id' => OrderState::where('name', 'pending')->first()->id,
+        ]);
+
+        foreach($cart as $product_id => $quantity) {
+
+            $order->products()->attach($product_id, ['quantity' => $quantity]);
+
+        }
+
+        $request->session()->forget('cart');
+
+        return true;
     }
 
     /**
@@ -61,16 +80,6 @@ class OrdersController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
