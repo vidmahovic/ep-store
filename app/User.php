@@ -50,6 +50,14 @@ class User extends Model implements AuthenticatableContract,
         $this->attributes['password'] = bcrypt($password);
     }
 
+    public function getNameAttribute() {
+        return ucfirst($this->attributes['name']);
+    }
+
+    public function getSurnameAttribute() {
+        return ucfirst($this->attributes['surname']);
+    }
+
 
 
     /**
