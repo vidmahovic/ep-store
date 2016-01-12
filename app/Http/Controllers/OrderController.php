@@ -23,13 +23,23 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param null $status
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($status = null)
     {
-        $orders = Order::orderBy('created_at', 'desc');
+        if($status) {
 
-        return view('user.orders')->with('orders', $orders);
+            $state_id = OrderState::where('name', $status)->first()->id;
+
+            return view('orders')->with([
+
+                'orders' => Order::where('state_id', $state_id)->orderBy('created_at', 'desc')->get()
+
+            ]);
+        }
+
+        return view('user.orders')->with('orders', Order::orderBy('created_at', 'desc'));
     }
 
     /**
@@ -82,13 +92,22 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @param $state
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $state_id = OrderState::where('name', $request->get('status'))->first()->id;
+
+        if(! is_null($state_id)) {
+
+            $order = Order::findOrFail($id);
+            $order->update([
+                'state_id' => $state_id
+            ]);
+        }
     }
 
     /**
@@ -99,6 +118,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
