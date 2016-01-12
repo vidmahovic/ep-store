@@ -40,8 +40,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('users/{users}/deactivate', 'UserController@deactivate');
     Route::post('users/{users}/activate', 'UserController@activate');
     Route::resource('products', 'ProductController');
-    Route::post('products/{product}/deactivate', 'ProductController@deactivate');
-    Route::post('products/{product}/activate', 'ProductController@activate');
+    Route::post('products/{products}/deactivate', 'ProductController@deactivate');
+    Route::post('products/{products}/activate', 'ProductController@activate');
+    Route::resource('orders', 'OrderController');
     Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
     Route::post('purchase/buy', 'PurchaseController@create');
@@ -52,11 +53,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     });
 });
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {
+/*Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {
 
     Route::get('orders', 'OrdersController@index');
     Route::get('orders/confirmed', 'OrdersController@confirmed');
-});
+});*/
 
 Route::get('cart', 'CartController@index');
 Route::put('cart', 'CartController@update');
