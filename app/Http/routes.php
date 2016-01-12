@@ -37,6 +37,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('employees/{employees}/activate', 'EmployeeController@activate');
     Route::get('/', 'HomeController@index');
     Route::resource('users', 'UserController');
+    Route::resource('orders', 'OrderController');
     Route::post('users/{users}/deactivate', 'UserController@deactivate');
     Route::post('users/{users}/activate', 'UserController@activate');
     Route::resource('products', 'ProductController');
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
 /*Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {
 
-    Route::get('orders', 'OrdersController@index');
+    //Route::get('orders', 'OrdersController@index');
     Route::get('orders/confirmed', 'OrdersController@confirmed');
 });*/
 

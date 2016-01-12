@@ -117,13 +117,15 @@ var epStore = {
     purchase: {
 
         eventHandler: function () {
-            var _token = $('input[name="_token"]').val()
+            var _token = $('input[name="_token"]').val();
 
             $('#buy').on('click', function(e) {
                 e.preventDefault();
 
+                console.log('buy');
+
                 $.ajax({
-                    url: 'purchase/buy',
+                    url: 'orders',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': _token
@@ -140,6 +142,53 @@ var epStore = {
         }
     },
 
+    orders: {
+
+        eventHandler: function() {
+
+            var self = this,
+                _token = $('input[name="_token"]').val()
+            ;
+
+            $('.order-list--all').on('click', '.order-list__item button', function(e) {
+                e.preventDefault();
+
+                if($(this).hasClass('confirm')) {
+                    self.setOrderStatus('confirmed', _token);
+                }
+                else if($(this).hasClass('cancel')) {
+                    self.setOrderStatus('cancelled', _token);
+                }
+            });
+
+            $('.order-list--confirmed').on('click', '.order-list__item button', function(e) {
+                e.preventDefault();
+
+                if($(this).hasClass('cancel')) {
+                    self.setOrderStatus('declined', _token);
+                }
+            });
+        },
+
+        setOrderStatus: function(status, _token) {
+
+            $.ajax({
+                url: '/orders',
+                method: 'PUT',
+                headers: {
+                    'X-CSRF-TOKEN': _token
+                },
+                data: {
+                    status: status
+                }
+            })
+        },
+
+        init: function() {
+          this.eventHandler();
+        }
+    },
+
     init: function() {
 
         switch($('section').attr('data-section')) {
@@ -151,6 +200,9 @@ var epStore = {
                 break;
             case 'purchase':
                 this.purchase.init();
+                break;
+            case 'orders':
+                this.orders.init();
                 break;
         }
 
