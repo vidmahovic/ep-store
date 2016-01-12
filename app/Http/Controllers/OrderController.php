@@ -82,13 +82,24 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @param $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $status)
     {
-        //
+        $state_id = OrderState::where('name', $status)->first()->id;
+
+        if(! is_null($state_id)) {
+
+            $order = Order::findOrFail($id);
+            $order->update([
+                'state_id' => $state_id
+            ]);
+
+
+        }
     }
 
     /**
