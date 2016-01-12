@@ -32,7 +32,7 @@ class OrderController extends Controller
 
             $state_id = OrderState::where('name', $status)->processed(auth()->user()->id)->first()->id;
 
-            return view('orders')->with([
+            return view('user.orders')->with([
 
                 'orders' => Order::where('state_id', $state_id)->orderBy('created_at', 'desc')->get()
 

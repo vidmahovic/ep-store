@@ -10,15 +10,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="order-list__item">
-        <td>dhkjfdhsk6783674832</td>
-        <td>15.10 2016</td>
-        <td>Stranka 5</td>
-        <td>
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-warning btn-xs cancel">Storniraj</button>
-            </div>
-        </td>
-    </tr>
+        <tr class="order-list__item">
+            <td>dhkjfdhsk6783674832</td>
+            <td>15.10 2016</td>
+            <td>Stranka 5</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-warning btn-xs cancel">Storniraj</button>
+                </div>
+            </td>
+        </tr>
     </tbody>
 </table>
