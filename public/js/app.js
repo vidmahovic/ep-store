@@ -129,7 +129,6 @@ var epStore = {
                         'X-CSRF-TOKEN': _token
                     }
                 }).done(function(){
-
                     window.location.replace('purchase/success');
                 });
             })
