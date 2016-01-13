@@ -1,24 +1,27 @@
-<h2>Seznam potrjenih naročil</h2>
-<hr>
-<table class="table table-hover order-list order-list--confirmed">
-    <thead>
-    <tr>
-        <th>Številka naročila</th>
-        <th>Datum</th>
-        <th>Stranka</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr class="order-list__item">
-            <td>dhkjfdhsk6783674832</td>
-            <td>15.10 2016</td>
-            <td>Stranka 5</td>
-            <td>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-warning btn-xs cancel">Storniraj</button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+@foreach($orders as $order)
+    @if (count($order->state_id) === 2)
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Številka naročila</th>
+                <th>Datum</th>
+                <th>Šifra stranke</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="order-list__item">
+                <td>{{$order->id}}</td>
+                <td>{{$order->created_at}}</td>
+                <td>{{$order->ordered_by}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-success btn-xs confirm">Potrdi</button>
+                        <button type="button" class="btn btn-warning btn-xs cancel">Prekliči</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    @endif
+@endforeach

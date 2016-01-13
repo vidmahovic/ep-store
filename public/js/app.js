@@ -149,18 +149,18 @@ var epStore = {
                 _token = $('input[name="_token"]').val()
             ;
 
-            $('.order-list--all').on('click', '.order-list__item button', function(e) {
+            $('#pending').on('click', 'button.btn', function(e) {
                 e.preventDefault();
 
                 if($(this).hasClass('confirm')) {
-                    self.setOrderStatus('confirmed', _token);
+                    self.setOrderStatus('completed', _token);
                 }
                 else if($(this).hasClass('cancel')) {
                     self.setOrderStatus('cancelled', _token);
                 }
             });
 
-            $('.order-list--confirmed').on('click', '.order-list__item button', function(e) {
+            $('#confirmed').on('click', 'button.btn', function(e) {
                 e.preventDefault();
 
                 if($(this).hasClass('cancel')) {
@@ -172,14 +172,18 @@ var epStore = {
         setOrderStatus: function(status, _token) {
 
             $.ajax({
-                url: '/orders',
-                method: 'PUT',
+                url: 'orders',
+                method: 'POST',
+                contentType: 'application/json',
                 headers: {
                     'X-CSRF-TOKEN': _token
                 },
                 data: {
+                    _method:"PUT",
                     status: status
                 }
+            }).done(function(){
+                window.location.reload(true);
             })
         },
 
