@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Customer;
 use App\Employee;
 use App\Product;
+use App\User;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
@@ -32,12 +33,10 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
 
         $router->bind('customers', function($id) {
-            return Customer::with('user')->find($id);
+            return Customer::with('user')->findOrFail($id);
         });
 
-        $router->bind('employees', function($id) {
-            return Employee::with('user')->find($id);
-        });
+        $router->model('employees', Employee::class);
 
         $router->model('products', Product::class);
     }

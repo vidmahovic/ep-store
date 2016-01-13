@@ -29,7 +29,7 @@ class StoreCustomerRequest extends Request
             'surname' => 'required|alpha|255',
             'street' => 'required|aplha_num|max:255',
             'city_id' => 'required|exists:municipalities,id',
-            'phone' => 'string|max:255',
+            'phone' => 'sometimes|string|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ];

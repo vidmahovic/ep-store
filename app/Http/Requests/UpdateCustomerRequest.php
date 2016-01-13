@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\Input;
 
 class UpdateCustomerRequest extends Request
 {
@@ -13,7 +14,7 @@ class UpdateCustomerRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->hasRole('employee') | auth()->user()->hasRole('customer');
     }
 
     /**
@@ -24,7 +25,12 @@ class UpdateCustomerRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|alpha|max:255',
+            'surname' => 'required|alpha|max:255',
+            'email' => 'unique:users,email,'.Input::get('id'),
+            'street' => 'required|string',
+            'phone' => 'max:255',
+            'city_id' => 'required|exists:municipalities,id',
         ];
     }
 }

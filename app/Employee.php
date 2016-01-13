@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Employee extends Model
 {
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     protected $table = "employees";
 
     public $timestamps = false;
@@ -26,8 +31,6 @@ class Employee extends Model
 
 
     /* QUERY SCOPES */
-
-
     /**
      * Return deactivated employees
      * @param $query
@@ -36,6 +39,5 @@ class Employee extends Model
     public function scopeDeactivated($query) {
         return $query->onlyTrashed();
     }
-
 
 }

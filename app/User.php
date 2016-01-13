@@ -9,8 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
-
+use ReflectionClass;
 
 
 class User extends Model implements AuthenticatableContract,
@@ -41,9 +40,14 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
 
+/*    protected $stiClassField = 'userable_type';
+    protected $stiBaseClass = 'User';*/
+
+
     public function userable() {
         return $this->morphTo();
     }
+
 
     // MUTATORS
     public function setPasswordAttribute($password) {
@@ -58,8 +62,6 @@ class User extends Model implements AuthenticatableContract,
         return ucfirst($this->attributes['surname']);
     }
 
-
-
     /**
      * Check whether the authenticated user has a specified role (admin, employee or customer)
      * @return mixed
@@ -67,5 +69,7 @@ class User extends Model implements AuthenticatableContract,
     public function hasRole($role) {
         $model = 'App\\'.ucfirst($role);
         return $model::find($this->userable_id) !== null;
+        //$model = new ReflectionClass($this);
+        //return strtolower($model->getShortName()) == $role;
     }
 }

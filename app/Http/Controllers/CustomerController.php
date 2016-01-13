@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class CustomerController extends Controller
@@ -18,8 +19,12 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('employee', ['except' => ['edit', 'update']]);
+        $this->middleware('employee');
         $this->middleware('customer', ['only' => ['show', 'edit', 'update']]);
+    }
+
+    public function getRememberToken() {
+        parent::getRememberToken();
     }
 
     /**
@@ -89,7 +94,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return $customer->with('user');
+        return view('user.customer.edit')->with('customer', $customer);
     }
 
     /**
