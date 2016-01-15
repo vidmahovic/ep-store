@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -16,7 +17,8 @@ class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+
 
     /**
      * The database table used by the model.
@@ -66,10 +68,18 @@ class User extends Model implements AuthenticatableContract,
      * Check whether the authenticated user has a specified role (admin, employee or customer)
      * @return mixed
      */
-    public function hasRole($role) {
+    public function hasRole($role)
+    {
         $model = 'App\\'.ucfirst($role);
-        return $model::find($this->userable_id) !== null;
-        //$model = new ReflectionClass($this);
-        //return strtolower($model->getShortName()) == $role;
+        return $model::find($this->userable_id) && $this->userable_type == $model;
     }
+
+    public function getStatusSpan() {
+        if($this->trashed()) {
+            return '<span style="color: #d75d4f">deaktiviran</span>';
+        }
+
+        return '<span style="color: #51d738">aktiviran</span>';
+    }
+
 }

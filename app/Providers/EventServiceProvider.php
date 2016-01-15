@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\CustomerWasRegistered;
+use App\Order;
 use App\User;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\CustomerWasRegistered' => [
             'App\Listeners\SendEmailConfirmation',
         ],
+        'App\Events\OrderWasPurchased' => [
+            'App\Listeners\SendPurchaseEmail'
+        ]
     ];
 
     /**
@@ -31,9 +35,5 @@ class EventServiceProvider extends ServiceProvider
         parent::boot($events);
 
 
-
-        User::created(function($user) {
-
-        });
     }
 }

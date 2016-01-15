@@ -32,7 +32,10 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                <a href="#" id="buy" class="btn btn-success pull-right">Zaključi nakup</a>
+                                {!! Form::open(['route' => 'user.orders.store', 'method' => 'POST']) !!}
+                                    <button type="submit" class="btn btn-success pull-right">Zaključi nakup</button>
+                                {!! Form::close() !!}
+                                {{--<a href="#" id="buy" class="btn btn-success pull-right">Zaključi nakup</a>--}}
                             </div>
                         </div>
                     @endif

@@ -32,9 +32,7 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot($router);
 
-        $router->bind('customers', function($id) {
-            return Customer::with('user')->findOrFail($id);
-        });
+        $router->model('customers', Customer::class);
 
         $router->model('employees', Employee::class);
 

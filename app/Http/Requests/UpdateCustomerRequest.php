@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-use Illuminate\Support\Facades\Input;
+use App\User;
 
 class UpdateCustomerRequest extends Request
 {
@@ -14,7 +13,10 @@ class UpdateCustomerRequest extends Request
      */
     public function authorize()
     {
-        return auth()->user()->hasRole('employee') | auth()->user()->hasRole('customer');
+        $user = auth()->user();
+
+        return $user->hasRole('employee') || ($user->hasRole('customer') && $user->userable_id == $this->request->get('id'));
+
     }
 
     /**
@@ -24,12 +26,14 @@ class UpdateCustomerRequest extends Request
      */
     public function rules()
     {
+        $user = User::where('userable_id', $this->request->get('id'))->first();
+
         return [
             'name' => 'required|alpha|max:255',
             'surname' => 'required|alpha|max:255',
-            'email' => 'unique:users,email,'.Input::get('id'),
-            'street' => 'required|string',
-            'phone' => 'max:255',
+            'email' => 'unique:users,email,'.$user->id,
+            'street' => ['required'],
+            'phone' => ['max:255', 'string', 'regex:/^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))/'],
             'city_id' => 'required|exists:municipalities,id',
         ];
     }

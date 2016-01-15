@@ -101,7 +101,10 @@ $factory->define(App\Product::class, function(Faker\Generator $faker) {
 
 // ORDERS TABLE SEEDER
 $factory->define(App\Order::class, function(Faker\Generator $faker) {
-    return [];
+    return [
+        'shipping' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 100),
+        'price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 7000),
+    ];
 });
 
 // VOTES TABLE SSEDER

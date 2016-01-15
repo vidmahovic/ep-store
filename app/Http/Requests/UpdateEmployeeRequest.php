@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
-class StoreEmployeeRequest extends Request
+class UpdateEmployeeRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,15 @@ class StoreEmployeeRequest extends Request
      */
     public function authorize()
     {
-        return auth()->user()->hasRole('admin');
+        if(auth()->user()->hasRole('admin')) {
+            return true;
+        }
+        if(auth()->user()->hasRole('employee') && auth()->user()->id == Input::get('id')) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -25,10 +33,7 @@ class StoreEmployeeRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users.email',
-            'name' => 'required|alpha|string|min:2|max:255',
-            'surname' => 'required|alpha|string|min:2|max:255',
-            'password' => 'required:min:6'
+            //
         ];
     }
 }

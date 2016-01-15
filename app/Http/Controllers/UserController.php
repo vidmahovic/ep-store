@@ -65,7 +65,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if($user->hasRole('customer')) {
+            return view('user.customer.edit')->with(['customer' => $user->userable()->first()]);
+        }
+
+        return view('user.edit')->with(['user' => $user->userable()->first()]);
     }
 
     /**

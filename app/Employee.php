@@ -17,6 +17,8 @@ class Employee extends Model
 
     public $timestamps = false;
 
+    protected $with = ['user'];
+
     public function user() {
         return $this->morphOne(User::class, 'userable');
     }

@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-
     public function orders() {
-        return $this->belongsToMany(Order::class, 'orders_products')->withPivot('quantity');
+        return $this->belongsToMany(Order::class, 'orders_products')->withPivot('quantity')->withTimestamps();
     }
 
     public function voters() {
-        return $this->belongsToMany(Customer::class, 'votes')->withPivot('vote');
+        return $this->belongsToMany(Customer::class, 'votes')->withPivot('vote')->withTimestamps();
     }
 }

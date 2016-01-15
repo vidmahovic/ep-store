@@ -6,6 +6,7 @@ use App\Events\CustomerWasRegistered;
 use Illuminate\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmailConfirmation
 {
@@ -30,8 +31,8 @@ class SendEmailConfirmation
      */
     public function handle(CustomerWasRegistered $event)
     {
-
-        /*$this->mail->send()*/
-
+        Mail::send('emails.registration_email', ['user' => $event->customer->user, 'password' => $event->password], function($m) use($event) {
+            $m->to($event->customer->user->email, $event->customer->user->name)->subject('Registracija uspešna!');;
+        });
     }
 }

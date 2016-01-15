@@ -54,10 +54,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
     Route::post('purchase/buy', 'PurchaseController@create');
     Route::get('purchase/success', 'PurchaseController@success');
-    Route::get('my-orders', 'ActivityLogController@index');
-    Route::get('user-settings', function() {
-        return view('user.user-settings');
-    });
+    Route::get('my-orders', 'HomeController@orders');
+    Route::get('my-settings', 'HomeController@settings');
+    Route::get('my-profile', 'HomeController@profile');
 });
 
 /*Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {

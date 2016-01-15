@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
+use App\Municipality;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -19,8 +21,8 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('employee');
         $this->middleware('customer', ['only' => ['show', 'edit', 'update']]);
+        //$this->middleware('employee');
     }
 
     public function getRememberToken() {
@@ -36,7 +38,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::with('user')->paginate(30);
 
-        return $customers;
+        return view('user.customer.index')->with('customers', $customers);
     }
 
     /**
@@ -100,13 +102,27 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateCustomerRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCustomerRequest $request, $customer)
     {
-        //
+        $customer->street = $request->get('street');
+        $customer->city_id = $request->get('city_id');
+        $customer->phone = $request->get('phone');
+        $customer->save();
+
+        $user = User::where('userable_id', $customer->id)->firstOrFail();
+        $user->email = $request->get('email');
+        $user->name = $request->get('name');
+        $user->surname = $request->get('surname');
+        $user->save();
+
+        $customer->user()->save($user);
+
+        return redirect('user')->with('message', 'Podatki so bili uspešno posodobljeni.');
+
     }
 
     /**

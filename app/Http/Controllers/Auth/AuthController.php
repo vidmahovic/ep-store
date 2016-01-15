@@ -6,6 +6,7 @@ use App\Customer;
 use App\Events\CustomerWasRegistered;
 use App\Municipality;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -43,12 +44,26 @@ class AuthController extends Controller
 
 
     /**
-     * TODO: Add functionality to send an email to registered user and prevent him from authenticating automatically
+     * Override postRegister method.
+     * @param Request $request
      * @return mixed
      */
-/*    public function postRegister() {
-        return $this->postRegister();
-    }*/
+    public function postRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $customer = $this->create($request->all());
+
+        event(new CustomerWasRegistered($customer, $request->get('password')));
+
+        return redirect('/')->with('message', 'Registracija je bila uspešna! Veselo nakupovanje.');
+    }
 
 
     /**
@@ -64,7 +79,7 @@ class AuthController extends Controller
             'surname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-            'phone' => 'required|max:255',
+            'phone' => ['max:255', 'string', 'regex:/^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))/'],
             'street' => 'required|max:100',
             'city_id' => 'required|exists:municipalities,id'
         ]);
@@ -93,6 +108,7 @@ class AuthController extends Controller
 
         $customer->user()->save($user);
 
-        return $user;
+
+        return $customer;
     }
 }

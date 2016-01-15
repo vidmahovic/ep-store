@@ -36,8 +36,11 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url('/cart') }}">Košarica</a></li>
                 @if (Auth::user())
-                    <li><a href="{{ url('/user/my-orders') }}">Pretekli nakupi</a></li>
+                    @if(Auth::user()->hasRole('customer'))
+                        <li><a href="{{ url('/user/my-orders') }}">Pretekli nakupi</a></li>
+                    @endif
                     @if (Auth::user()->hasRole('employee'))
+                        <li><a href="{{ url('user/customers') }}">Seznam strank</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Naročilo <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -57,7 +60,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/user/user-settings') }}">Nastavitve</a></li>
+                            <li><a href="{{ url('user/my-profile') }}">Moj profil</a></li>
+                            <li><a href="{{ url('user/my-settings') }}">Nastavitve</a></li>
                             <li><a href="{{ url('/auth/logout') }}">Odjava</a></li>
                         </ul>
                     </li>
@@ -66,8 +70,9 @@
         </div>
     </div>
 </nav>
-
-@yield('content')
+<div class="container">
+    @yield('content')
+</div>
 
         <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

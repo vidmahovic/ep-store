@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderProduct extends Model
 {
+
+    public $timestamps = true;
 /*    public function product() {
         return $this->bleongsTo('App\Product');
     }

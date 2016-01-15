@@ -5,7 +5,7 @@
     <section data-section="activity-log">
         <div class="container">
             @if(isset($orders))
-                @include('user.activity.orders');
+                @include('user.activity.orders')
             @endif
         </div>
     </section>

@@ -3,11 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Recordable;
+
 
 class Order extends Model
 {
+    //use Recordable;
+
+    //static $recordEvents = ['created', 'updated'];
+
+
+
     protected $table = 'orders';
 
+    protected $with = ['subscriber', 'acquirer'];
 
     protected $visible = ['id', 'ordered_by', 'acquired_by', 'created_at'];
 
@@ -21,7 +30,11 @@ class Order extends Model
      * }
     */
     public function products() {
-        return $this->belongsToMany(Product::class, 'orders_products')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'orders_products')->withPivot('quantity')->withTimestamps();
+    }
+
+    public function activtity() {
+        return $this->hasMany(ActivityLog::class);
     }
 
     public function acquirer() {
@@ -37,11 +50,21 @@ class Order extends Model
     }
 
 
-    public function scopeProcessed($query) {
+    public function scopePending($query) {
         return $query->where('acquired_by', null);
     }
 
-    public function scopeIsProcessed($query, $id) {
-        return $this->scopeProcessed($query)->where('id', $id);
+    public function scopePendingFor($query, $id) {
+        return $this->scopePending($query)->where('id', $id);
     }
+
+    public function scopeBy($query, $id) {
+        return $query->where('ordered_by', $id);
+    }
+
+    public function scopeStatus($query, $status) {
+        $state_id = OrderState::where('name', $status)->pluck('id');
+        return $query->where('state_id', $state_id);
+    }
+
 }

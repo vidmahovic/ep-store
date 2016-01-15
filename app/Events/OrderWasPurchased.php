@@ -2,29 +2,25 @@
 
 namespace App\Events;
 
-use App\Customer;
 use App\Events\Event;
-use App\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Order;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CustomerWasRegistered extends Event implements ShouldQueue
+class OrderWasPurchased extends Event
 {
     use SerializesModels;
 
-    public $customer;
-    public $password;
+    public $order;
 
     /**
      * Create a new event instance.
      *
-     * @param Customer|User $customer
+     * @param Order $order
      */
-    public function __construct(Customer $customer, $password)
+    public function __construct(Order $order)
     {
-        $this->customer = $customer;
-        $this->password = $password;
+        $this->order = $order;
     }
 
     /**

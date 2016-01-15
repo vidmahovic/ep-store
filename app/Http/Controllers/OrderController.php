@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
+use App\Events\OrderWasPurchased;
 use App\Order;
 use App\OrderState;
+use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,13 +25,11 @@ class OrderController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param null $status
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $orders = Order::processed(auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $orders = Order::orderBy('created_at', 'desc');
 
         return view('user.orders')->with('orders', $orders);
     }
@@ -52,7 +53,9 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $cart = $request->session()->get('cart');
-        $customer = auth()->user();
+        $customer = Customer::findOrFail(auth()->user()->userable_id);
+        $order_price = 0;
+
 
         $order = Order::create([
             'ordered_by' =>  $customer->id,
@@ -63,9 +66,22 @@ class OrderController extends Controller
 
             $order->products()->attach($product_id, ['quantity' => $quantity]);
 
+            $product = Product::findOrFail($product_id);
+            $product->stock -= $quantity;
+            $product->save();
+
+            $order_price += $quantity * $product->price;
         }
 
+        $order->price = $order_price;
+        $order->shipping = rand(100, 10000) /100;
+        $order->save();
+
         $request->session()->forget('cart');
+
+        event(new OrderWasPurchased($order));
+
+        return redirect('user')->with('message', 'Nakup je bil uspešen. Preverite svojo elektronsko pošto.');
     }
 
     /**
@@ -90,13 +106,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $state_id = OrderState::where('name', $request->get('status'))->first()->id;
 
         if(! is_null($state_id)) {
 
             $order = Order::findOrFail($id);
             $order->update([
-                'state_id' => $state_id
+                'state_id' => $state_id,
+                'acquired_by' => '',
             ]);
         }
     }

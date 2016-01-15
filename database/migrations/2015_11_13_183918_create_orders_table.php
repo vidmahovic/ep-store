@@ -17,7 +17,10 @@ class CreateOrdersTable extends Migration
             $table->integer('ordered_by')->unsigned()->nullable();
             $table->integer('acquired_by')->unsigned()->nullable();
             $table->integer('state_id')->unsigned()->nullable();
+            $table->float('shipping', 5, 2);
+            $table->float('price', 6, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('orders', function(Blueprint $table) {

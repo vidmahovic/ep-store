@@ -17,4 +17,12 @@ class Vote extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
+    public function scopeLevel($query, $vote) {
+        return $query->where('vote', $vote);
+    }
+
+    public function scopeBy($query, $id) {
+        return $query->where('customer_id', $id);
+    }
+
 }

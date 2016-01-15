@@ -3,6 +3,7 @@
 use App\Customer;
 use App\Employee;
 use App\Municipality;
+use App\OrderState;
 use App\Product;
 use App\User;
 use Carbon\Carbon;
@@ -19,17 +20,20 @@ class CustomersTableSeeder extends Seeder
     public function run()
     {
         $employee_ids = Employee::all()->lists('id')->toArray();
+        $order_states = OrderState::lists('id')->toArray();
         $products = Product::all();
         $municipalities = Municipality::all();
 
-        factory(App\Customer::class, 50)->create()->each(function ($customer) use($employee_ids, $products, $municipalities){
+        factory(App\Customer::class, 50)->create()->each(function ($customer) use($employee_ids, $products, $municipalities, $order_states){
             shuffle($employee_ids);
+            shuffle($order_states);
             $customer->user()->save(factory(User::class, 'customer')->create());
             $customer->city_id = $municipalities->shuffle()->first()->id;
             $customer->save();
             $customer->products()->attach($products->shuffle()->first(), ['vote' => rand(1,5), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]);
             $customer->orders()->save(factory(App\Order::class)->create([
                 'acquired_by' => $employee_ids[0],
+                'state_id'    => $order_states[0],
             ]));
         });
 

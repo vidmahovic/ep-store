@@ -9,6 +9,8 @@ class Customer extends Model
 {
     use SoftDeletes;
 
+    protected $with = ['user', 'city', 'products'];
+
     protected $table = 'customers';
 
     public $timestamps = false;
@@ -20,7 +22,7 @@ class Customer extends Model
     }
 
     public function log() {
-        return $this->morphOne(ActivityLog::class, 'subject');
+        return $this->hasMany(ActivityLog::class, 'user_id');
     }
 
     public function city() {
@@ -32,7 +34,7 @@ class Customer extends Model
     }
 
     public function products() {
-        return $this->belongsToMany(Product::class, 'votes')->withPivot('vote');
+        return $this->belongsToMany(Product::class, 'votes')->withPivot('vote')->withTimestamps();
     }
 
 

@@ -46,6 +46,8 @@
                         <br>
                         @if(Auth::user())
                             <a href="#" id="purchase" class="btn btn-success pull-right">Oddaj naročilo</a>
+                        @else
+                            Za oddajo naročila se morate <a href="{{ url('auth/login') }}">prijaviti!</a>
                         @endif
                         {!! Form::close() !!}
                     @else

@@ -2,10 +2,19 @@
 
 @section('content')
 <section data-section="home">
-    <div class="container">
         <div class="row">
             <h2>Izdelki</h2>
             <hr>
+            @if(session()->has('message'))
+                <div class="alert alert-success" role="alert">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            @if(session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             <div class="col col-lg-12 products">
                 @if($products->isEmpty())
                     <h1>Ni izdelkov.</h1>
@@ -17,16 +26,22 @@
                             <div class="thumbnail">
                                 <img src="{{ $product->image_path }}" alt="product image">
                                 <div class="caption">
-                                    <h4 class="pull-right">{{ $product->price }} EUR</h4>
+                                    <h3 class="pull-right">{{ $product->price }} €</h3>
                                     <h4>{{ $product->name }}</h4>
-                                    <h4>{{ $product->manufacturer }}</h4>
+                                    <br>
+                                    <h5>{{ $product->manufacturer }}</h5>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="col col-xs-6 text-left">
                                         <button type="button" class="btn btn-primary btn-sm">Podrobnosti</button>
                                     </div>
                                     <div class="col col-xs-6 text-right">
-                                        <button id="addToCart" type="button" class="btn btn-success btn-sm">Dodaj v košarico</button>
+                                        @if($product->stock > 0)
+                                            <button id="addToCart" type="button" class="btn btn-success btn-sm">Dodaj v košarico</button>
+                                        @else
+                                            <button id="addToCart" type="button" class="btn btn-danger btn-sm disabled">Ni na zalogi</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -39,6 +54,5 @@
                 @endif
             </div>
         </div>
-    </div>
 </section>
 @endsection
