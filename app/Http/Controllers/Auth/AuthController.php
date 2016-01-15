@@ -6,6 +6,7 @@ use App\Customer;
 use App\Events\CustomerWasRegistered;
 use App\Municipality;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,8 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers{
-        postRegister as traitPostRegister; // to extend a method from the trait
+        postRegister as traitPostRegister;
+        getCredentials as traitAuthenticatesUsers; // to extend a method from the trait
     }
     use ThrottlesLogins;
 
@@ -62,7 +64,7 @@ class AuthController extends Controller
 
         event(new CustomerWasRegistered($customer, $request->get('password')));
 
-        return redirect('/')->with('message', 'Registracija je bila uspešna! Veselo nakupovanje.');
+        return redirect('/')->with('message', 'Registracija je bila uspešna! Prosimo, preverite svojo elektronsko pošto in prek povezave dokažete pristnost.');
     }
 
 
@@ -81,7 +83,8 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'phone' => ['max:255', 'string', 'regex:/^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))/'],
             'street' => 'required|max:100',
-            'city_id' => 'required|exists:municipalities,id'
+            'city_id' => 'required|exists:municipalities,id',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
     }
 
@@ -97,18 +100,37 @@ class AuthController extends Controller
             'name' => $data['name'],
             'surname' => $data['surname'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => $data['password'],
+            'token' => str_random(30),
         ]);
 
         $customer = Customer::create([
             'street' => $data['street'],
             'phone' => $data['phone'],
-            'city_id' => $data['city_id']
+            'city_id' => $data['city_id'],
         ]);
 
         $customer->user()->save($user);
 
 
         return $customer;
+    }
+
+    public function confirmEmail($token)
+    {
+        try {
+            User::where('token', $token)->firstOrFail()->confirmEmail();
+        } catch(ModelNotFoundException $e) {
+            return redirect('/')->with('error_message', 'Uporabnika ni bilo mogoče najti. Vaš žeton se ne ujema z nobenim registriranim uporabnikom');
+        }
+        return redirect('/')->with('message', "Preverjanje pristnosti je bilo uspešno! Sedaj se lahko prijavite.");
+    }
+
+    protected function getCredentials(Request $request) {
+        return [
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+            'verified' => true,
+        ];
     }
 }

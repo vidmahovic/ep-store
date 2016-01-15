@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
+Route::get('register/confirm/{token}', 'Auth\AuthController@confirmEmail');
 
 
 

@@ -42,6 +42,7 @@ class CustomersTableSeeder extends Seeder
         $user->surname = 'Mahovic';
         $user->email = 'vid.mahovic@gmail.com';
         $user->password = 'vid123';
+        $user->verified = true;
         $user->save();
 
         $customer = new Customer;

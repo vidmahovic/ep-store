@@ -9,7 +9,7 @@ Vaši prijavni podatki so: <br><br>
 <strong>Email naslov: </strong> {{ $user->email }}<br>
 <strong>Geslo: </strong> {{ $password }}
 <br><br><br>
-Če se želite prijaviti, kliknite <a href="{{ url('auth/login') }}">tukaj</a>.
+<strong>Za uspešno prijavo moramo preveriti vašo pristnost. To storite <a href="{{ url('register/confirm/'.$user->token) }}">tukaj</a>.</strong>
 <br>
 <br>
 <br>

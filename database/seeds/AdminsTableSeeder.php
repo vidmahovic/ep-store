@@ -18,6 +18,7 @@ class AdminsTableSeeder extends Seeder
         $user->surname = 'Su';
         $user->email = 'sudo.su@gmail.com';
         $user->password = 'sudo123';
+        $user->verified = true;
         $user->save();
         $admin = new Admin;
         $admin->save();

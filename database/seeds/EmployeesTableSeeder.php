@@ -24,6 +24,7 @@ class EmployeesTableSeeder extends Seeder
         $user->surname = 'Drobne';
         $user->email = 'erik.drobne@gmail.com';
         $user->password = 'erik123';
+        $user->verified = true;
         $user->save();
         $employee = new Employee;
         $employee->save();

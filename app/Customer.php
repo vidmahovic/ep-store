@@ -15,7 +15,7 @@ class Customer extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['street', 'phone'];
+    protected $fillable = ['street', 'phone', 'city_id'];
 
     public function user() {
         return $this->morphOne(User::class, 'userable');
@@ -36,7 +36,6 @@ class Customer extends Model
     public function products() {
         return $this->belongsToMany(Product::class, 'votes')->withPivot('vote')->withTimestamps();
     }
-
 
     /* QUERY SCOPES */
     public function scopeDeactivated($query) {

@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "pda/pheanstalk": "~3.0",
         "guzzlehttp/guzzle": "~5.3|~6.0",
-        "laravelcollective/html": "~5.0"
+        "laravelcollective/html": "~5.0",
+        "anhskohbo/no-captcha": "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

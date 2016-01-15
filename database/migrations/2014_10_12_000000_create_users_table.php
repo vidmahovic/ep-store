@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->binary('password', 60);
             $table->integer('userable_id')->index();
             $table->string('userable_type')->index();
+            $table->boolean('verified')->default(false);
+            $table->string('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
