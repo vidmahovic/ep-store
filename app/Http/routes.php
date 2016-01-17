@@ -18,12 +18,11 @@ Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 Route::get('register/confirm/{token}', 'Auth\AuthController@confirmEmail');
 
 
-
-// API for Android
-/*Route::group(['prefix' => 'aip/v1/'], function() {
+Route::group(['prefix' => 'api/v1/'], function() {
     // list available API routes
-    Route::post('products', 'api\v1\ProductApiController@index');
-});*/
+    Route::get('products', 'api\v1\ProductApiController@index');
+    Route::get('products/{products}', 'api\v1\ProductApiController@show');
+});
 
 // id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
 // Calling convention (example): store.dev/1/users

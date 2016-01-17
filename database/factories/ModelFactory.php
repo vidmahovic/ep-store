@@ -63,12 +63,16 @@ $factory->define(App\Customer::class, function(Faker\Generator $faker) {
 
 // ADMIN TABLE SEEDER (empty set is return, just to increment the id and set the timestamps)
 $factory->define(App\Admin::class, function(Faker\Generator $faker) {
-    return [];
+    return [
+        'cert_auth' => $faker->email
+    ];
 });
 
 // EMPLOYEE TABLE SEEDER (empty set is return, just to increment the id and set the timestamps)
 $factory->define(App\Employee::class, function(Faker\Generator $faker) {
-    return [];
+    return [
+        'cert_auth' => $faker->email
+    ];
 });
 
 // MUNICIPALITY TABLE SEEDER

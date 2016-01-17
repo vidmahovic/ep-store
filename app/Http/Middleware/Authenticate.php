@@ -40,6 +40,28 @@ class Authenticate
             } else {
                 return redirect()->guest('auth/login');
             }
+        } else {
+            if(config('app.client_certificate')) {
+
+                if(isset($_SERVER['SSL_CLIENT_CERT'])) {
+
+                    $user = $this->auth->user();
+                    $certificate = openssl_x509_parse($_SERVER['SSL_CLIENT_CERT']) ;
+
+                    if($user->hasRole('admin') || $user->hasRole('employee')) {
+                        if(in_array('email', $certificate)) {
+
+                            $email = $certificate['email'];
+
+                            if($user->email != $email) {
+                                return redirect()->guest('auth/login');
+                            }
+                        } else {
+                            return redirect()->guest('auth/login');
+                        }
+                    }
+                }
+            }
         }
 
         return $next($request);

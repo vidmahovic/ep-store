@@ -25,8 +25,11 @@ class Employee
     public function handle($request, Closure $next)
     {
         if($this->auth->check() && $this->auth->user()->hasRole('employee')) {
+
             return $next($request);
+
         }
+
         return redirect()->back();
     }
 }

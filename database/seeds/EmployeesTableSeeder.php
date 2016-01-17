@@ -27,6 +27,7 @@ class EmployeesTableSeeder extends Seeder
         $user->verified = true;
         $user->save();
         $employee = new Employee;
+        $employee->cert_auth = 'erik.drobne@gmail.com';
         $employee->save();
         $employee->user()->save($user);
     }

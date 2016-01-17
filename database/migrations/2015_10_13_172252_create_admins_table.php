@@ -13,7 +13,8 @@ class CreateAdminsTable extends Migration
     public function up()
     {
         Schema::create('admins', function(Blueprint $table) {
-           $table->increments('id');
+            $table->increments('id');
+            $table->string('cert_auth')->unique();
         });
     }
 

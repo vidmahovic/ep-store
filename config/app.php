@@ -99,6 +99,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Client certificate authentication
+    |--------------------------------------------------------------------------
+    |
+    | If enabled, Authenticate Middleware will check if Client certificate
+    | and will handle the process of signing the user only if a valid
+    | certificate is provided.
+    |
+    */
+
+    'client_certificate' => env('CLIENT_CERTIFICATE', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |

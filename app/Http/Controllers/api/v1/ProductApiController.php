@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
 use App\Product;
 use Illuminate\Http\Request;
@@ -49,7 +49,7 @@ class ProductApiController extends Controller
      */
     public function show($id)
     {
-        //
+        return Product::findOrFail($id);
     }
 
     /**

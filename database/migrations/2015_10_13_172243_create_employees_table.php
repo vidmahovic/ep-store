@@ -14,6 +14,7 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function(Blueprint $table) {
             $table->increments('id');
+            $table->string('cert_auth')->unique();
         });
     }
 

@@ -25,8 +25,11 @@ class Admin
     public function handle($request, Closure $next)
     {
         if($this->auth->check() && $this->auth->user()->hasRole('admin')) {
+
             return $next($request);
+
         }
+
         return redirect()->back();
     }
 }

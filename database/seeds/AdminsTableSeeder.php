@@ -21,6 +21,7 @@ class AdminsTableSeeder extends Seeder
         $user->verified = true;
         $user->save();
         $admin = new Admin;
+        $admin->cert_auth = 'sudo.su@gmail.com';
         $admin->save();
         $admin->user()->save($user);
     }
