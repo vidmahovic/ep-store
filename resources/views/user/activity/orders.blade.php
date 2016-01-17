@@ -25,7 +25,6 @@
                             <tbody>
                             @foreach($orders as $order)
                                 <tr data-toggle="collapse" data-target="#order{{$order->id}}" class="accordion-toggle">
-
                                         <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                                         <td>{{ $order->id }}</td>
                                         <td>@include('user.activity.order-states.order-'.$order->state()->first()->name)</td>
@@ -34,7 +33,7 @@
                                     <td>{{ number_format($order->shipping + $order->price, 2) }}</td>
                                 </tr>
 
-                                @include('user.activity.order-details')
+                                @include('user.activity.order-details', ['order' => $order])
                             @endforeach
                             </tbody>
                         </table>
