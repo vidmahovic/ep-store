@@ -24,7 +24,12 @@ class UpdateProductRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|alpha_num|max:255',
+            'serial_num' => 'string',
+            'price' => 'required|numeric',
+            'manufacturer' => 'required|string',
+            'image_path' => 'url',
+            'stock' => 'integer'
         ];
     }
 }

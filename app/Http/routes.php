@@ -65,6 +65,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('orders/confirmed', 'OrdersController@confirmed');
 });*/
 
+Route::resource('products', 'ProductController');
+
 Route::get('cart', 'CartController@index');
 Route::put('cart', 'CartController@update');
 Route::delete('cart', 'CartController@destroy');

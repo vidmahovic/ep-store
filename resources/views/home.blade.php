@@ -34,7 +34,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col col-xs-6 text-left">
-                                        <button type="button" class="btn btn-primary btn-sm">Podrobnosti</button>
+                                        <a type="button" href="{{ url('products/'.$product->id) }}" class="btn btn-primary btn-sm">Podrobnosti</a>
                                     </div>
                                     <div class="col col-xs-6 text-right">
                                         @if(Auth::guest() || Auth::user()->hasRole('customer'))

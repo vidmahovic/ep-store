@@ -25,12 +25,12 @@ class StoreProductRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|alpha|max:255',
-            'serial_num' => 'alpha_num|unique:products,serial_num',
+            'name' => 'required|alpha_num|max:255',
+            'serial_num' => 'alpha_num|unique',
             'manufacturer' => 'required|alpha_num|max:255',
-            'image_path' => '',
+            'image_path' => 'url',
             'stock' => 'integer',
-            'price' => 'required'
+            'price' => 'required|numeric'
         ];
     }
 }
