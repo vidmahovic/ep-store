@@ -1,10 +1,13 @@
+@if($order->isEmpty())
+    <h4>Ni nepotrjenih naročil</h4>
+@else
 <table class="table table-hover order-list">
     <thead>
     <tr>
         <th>Številka naročila</th>
         <th>Datum</th>
         <th>Stranka</th>
-        <th>Status</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -15,7 +18,7 @@
             <td><a href="{{ route('user.customers.show', [$order->ordered_by]) }}">{{$order->subscriber->user->name }} {{ $order->subscriber->user->surname }}</a></td>
             <td>
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-success btn-xs confirm">Potrdi</button>
+                    <button type="submit" class="btn btn-success btn-xs confirm">Potrdi</button>
                     <button type="button" class="btn btn-warning btn-xs cancel">Prekliči</button>
                 </div>
             </td>
@@ -23,3 +26,4 @@
     @endforeach
     </tbody>
 </table>
+@endif

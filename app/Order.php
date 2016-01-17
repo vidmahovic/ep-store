@@ -4,10 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Services\Recordable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Order extends Model
 {
+    use SoftDeletes;
     //use Recordable;
 
     //static $recordEvents = ['created', 'updated'];

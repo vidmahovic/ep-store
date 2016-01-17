@@ -30,7 +30,7 @@
 
                             </div>
                             <div role="tabpanel" class="tab-pane" id="cancelled">
-                                @include('user.order.cancelled', ['orders' => $orders->status('cancelled')->onlyTrashed()->get()])
+                                @include('user.order.cancelled', ['orders' => $orders->onlyTrashed()->get()])
                             </div>
                         </div>
                     </div>

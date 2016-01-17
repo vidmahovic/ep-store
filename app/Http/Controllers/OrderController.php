@@ -101,12 +101,11 @@ class OrderController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @param $state
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-
+        dd($request->all());
 
         $state_id = OrderState::where('name', $request->get('status'))->first()->id;
 
