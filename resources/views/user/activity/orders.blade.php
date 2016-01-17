@@ -33,32 +33,8 @@
                                         <td>{{ $order->shipping }}</td>
                                     <td>{{ number_format($order->shipping + $order->price, 2) }}</td>
                                 </tr>
-                                <tr>
-                                    <td colspan="12" class="hiddenRow">
-                                        <div class="accordian-body collapse" id="order{{$order->id}}">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th><strong>Ime produkta</strong></th>
-                                                        <th><strong>Cena kos</strong></th>
-                                                        <th><strong>Količina</strong></th>
-                                                        <th><strong>Cena</strong></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($order->products() as $product)
-                                                        <tr>
-                                                            <td>{{ $product->name }}</td>
-                                                            <td>{{ $product->price }}€</td>
-                                                            <td>{{ $product->quantity }}</td>
-                                                            <td>{{ number_format($product->quantity * $product->price, 2) }}€</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
+
+                                @include('user.activity.order-details')
                             @endforeach
                             </tbody>
                         </table>
