@@ -9,32 +9,6 @@
                     @if($orders->isEmpty())
                         <h3>Zgodovina nakupov je prazna.</h3>
                     @else
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                <th>Številka naročila</th>
-                                <th>Status</th>
-                                <th>Podrobnosti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($orders as $order)
-                                <tr>
-                                    <td>{{ $order->id }}</td>
-                                    <td>
-                                        {{ $order->state()->first()->name }}
-                                    </td>
-                                    <td>
-                                        <a role="button" data-toggle="collapse" href="#order{{$order->id}}" aria-expanded="false" aria-controls="orderCollapse">
-                                            Več
-                                        </a>
-                                    </td>
-                                </tr>
-                                @include('user.activity.order-details')
-                            @endforeach
-                            </tbody>
-                        </table>
-
                         <table class="table table-condensed" style="border-collapse:collapse;">
 
                             <thead>
@@ -42,6 +16,9 @@
                                 <th>&nbsp;</th>
                                 <th>Številka naročila</th>
                                 <th>Status</th>
+                                <th>Cena</th>
+                                <th>Poštnina</th>
+                                <th>Skupaj</th>
                             </tr>
                             </thead>
 
@@ -52,6 +29,9 @@
                                         <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->state()->first()->name }}</td>
+                                        <td>{{ $order->price }}</td>
+                                        <td>{{ $order->shipping }}</td>
+                                    <td>{{ number_format($order->shipping + $order->price, 2) }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="12" class="hiddenRow">
@@ -74,24 +54,6 @@
                                                             <td>{{ number_format($product->quantity * $product->price, 2) }}€</td>
                                                         </tr>
                                                     @endforeach
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><strong>Cena</strong></td>
-                                                        <td>{{ $order->price }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><strong>Poštnina</strong></td>
-                                                        <td>{{ $order->shipping }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><strong>Skupaj</strong></td>
-                                                        <td>{{ number_format($order->shipping + $order->price, 2) }}</td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
