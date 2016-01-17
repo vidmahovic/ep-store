@@ -16,7 +16,7 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->price }}€</td>
                         <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ number_format($product->quantity * $product->price, 2) }}€</td>
+                        <td>{{ number_format($product->pivot->quantity * $product->price, 2) }}€</td>
                     </tr>
                 @endforeach
                 </tbody>
