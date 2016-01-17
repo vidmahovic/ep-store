@@ -52,11 +52,13 @@
                             </div>
                         </div>
                     @endforeach
-                    {!! Form::close() !!}
-                    <div class="text-center">
-                        {!! $products->render() !!}
-                    </div>
                 @endif
+            </div>
+            <div class="col col-lg-12">
+                {!! Form::close() !!}
+                <div class="text-center">
+                    {!! $products->render() !!}
+                </div>
             </div>
         </div>
 </section>

@@ -40,6 +40,9 @@ class HomeController extends Controller
     {
 
         $orders = Order::by(auth()->user()->userable_id)->orderBy('created_at', 'desc')->get();
+
+        //dd($orders);
+
         return view('user.activity.orders')->with('orders', $orders);
     }
 
