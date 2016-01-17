@@ -81,7 +81,7 @@ class OrderController extends Controller
 
         event(new OrderWasPurchased($order));
 
-        return redirect('user')->with('message', 'Nakup je bil uspešen. Preverite svojo elektronsko pošto.');
+        return redirect('user/purchase/success');
     }
 
     /**
