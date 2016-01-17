@@ -97,7 +97,7 @@ class OrderController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage. Useful for confirming an order. So if an employee confirms an order, you should call this function.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
@@ -128,5 +128,19 @@ class OrderController extends Controller
     public function destroy($id)
     {
 
+    }
+
+
+    /**
+     * Call: PUT (/orders/{orders}/deactivate)
+     *
+     * Deactivate an order. This will serve for: declining an order (before it's been processed) and cancelling it (after it's been processed)
+     * In bothe cases, we call delete() method on a model, which soft-deletes a record (sets the deleted_at timestamp). So if an employee does
+     * one of above mentioned actions, you should call this function.
+     * @param $id
+     */
+    public function deactivate($id)
+    {
+        /* TODO: if an order has state pending, then it will be declined, if not, it'll be cancelled. */
     }
 }
