@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -46,18 +47,24 @@ class Authenticate
                 if(isset($_SERVER['SSL_CLIENT_CERT'])) {
 
                     $certificate = openssl_x509_parse($_SERVER['SSL_CLIENT_CERT']) ;
-                    $user = $this->auth->user();
+                    $authenticated = $this->auth->user();
 
-                    if($user->hasRole('admin') || $user->hasRole('employee')) {
+                    if($authenticated->hasRole('admin') || $authenticated->hasRole('employee')) {
                         if(in_array('emailAddress', $certificate['subject'])) {
 
                             $email = $certificate['subject']['email'];
 
-                            if($user->email != $email) {
-                                return redirect()->guest('auth/login')->with('error', 'Izbran je bil neustrezen certifikat. Prosimo, kontaktirajte skrbnika.');
+                            $user = User::where('email', $email)->first();
+
+                            if(is_null($user)) {
+                                return redirect()->guest('auth/login')->with('error_message', 'V bazi ni uporabnika s pripadajočim certifikatom.');
+                            }
+
+                            if(get_class($authenticated->userable) != get_class($user->userable)) {
+                                return redirect()->guest('auth/login')->with('error_message', 'Izbrali ste neustrezen certifikat glede na vlogo.');
                             }
                         } else {
-                            return redirect()->guest('auth/login');
+                            return redirect()->guest('auth/login')->with('error_message');
                         }
                     }
                 }
