@@ -13,9 +13,9 @@ class EmployeeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('employee', ['only' => ['show', 'edit', 'update']]);
-        $this->middleware('admin', ['except' => ['show', 'edit', 'update']]);
+        $this->middleware('admin');
+        //$this->middleware('employee');
+        $this->middleware('employee', ['only' => ['edit', 'update', 'show']]);
     }
 
     /**
@@ -25,9 +25,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with('user')->paginate(30);
+        $employees = Employee::paginate(30);
 
-        return $employees;
+        return view('user.employee.index')->with('employees', $employees);
     }
 
     /**
@@ -54,12 +54,13 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Employee $employee
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        //
+        return view('user.profile')->with('user', $employee);
     }
 
     /**

@@ -6,7 +6,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-12 lead text-center">Moj profil<hr></div>
+                    <div class="col-md-12 lead text-center"><hr></div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 text-center">

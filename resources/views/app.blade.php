@@ -34,7 +34,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url('/cart') }}">Košarica</a></li>
+                @if(Auth::guest() || Auth::user()->hasRole('customer'))
+                    <li><a href="{{ url('/cart') }}">Košarica</a></li>
+                @endif
                 @if (Auth::user())
                     @if(Auth::user()->hasRole('customer'))
                         <li><a href="{{ url('/user/my-orders') }}">Pretekli nakupi</a></li>
@@ -49,6 +51,9 @@
                                 <li><a href="{{ url('user/orders', ['status' => 'confirmed']) }}">Potrjena naročila</a></li>--}}
                             </ul>
                         </li>
+                    @endif
+                    @if(Auth::user()->hasRole('admin'))
+                            <li><a href="{{ url('user/employees') }}">Seznam prodajalcev</a></li>
                     @endif
                 @endif
             </ul>

@@ -26,7 +26,7 @@
                             <div class="thumbnail">
                                 <img src="{{ $product->image_path }}" alt="product image">
                                 <div class="caption">
-                                    <h3 class="pull-right">{{ $product->price }} €</h3>
+                                    <h3 class="pull-right">{{ number_format($product->price, 2) }} €</h3>
                                     <h4>{{ $product->name }}</h4>
                                     <br>
                                     <h5>{{ $product->manufacturer }}</h5>
@@ -37,10 +37,15 @@
                                         <button type="button" class="btn btn-primary btn-sm">Podrobnosti</button>
                                     </div>
                                     <div class="col col-xs-6 text-right">
-                                        @if($product->stock > 0)
-                                            <button id="addToCart" type="button" class="btn btn-success btn-sm">Dodaj v košarico</button>
-                                        @else
-                                            <button id="addToCart" type="button" class="btn btn-danger btn-sm disabled">Ni na zalogi</button>
+                                        @if(Auth::guest() || Auth::user()->hasRole('customer'))
+                                            @if($product->stock > 0)
+                                                <button id="addToCart" type="button" class="btn btn-success btn-sm">Dodaj v košarico</button>
+                                            @else
+                                                <button id="addToCart" type="button" class="btn btn-danger btn-sm disabled">Ni na zalogi</button>
+                                            @endif
+                                        @endif
+                                        @if(Auth::check() && Auth::user()->hasRole('employee'))
+                                            <a type="button" href="{{ url('user/products/'.$product->id) }}" class="btn btn-warning btn-sm">Uredi izdelek</a>
                                         @endif
                                     </div>
                                 </div>

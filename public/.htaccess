@@ -14,6 +14,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
+    #RewriteRule ^/(.+) https://%{HTTP_HOST}/.+$1 [NC,R=301,L]
+
     #Force SSL redirection
     #RewriteCond %{HTTPS} !=on
     #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

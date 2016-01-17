@@ -54,6 +54,7 @@ class Authenticate
 
                             $email = $certificate['subject']['email'];
 
+                            /* TODO: preverjaj cert_auth, ne email!!! */
                             $user = User::where('email', $email)->first();
 
                             if(is_null($user)) {
