@@ -1,4 +1,4 @@
-@if($order->isEmpty())
+@if($orders->isEmpty())
     <h4>Ni nepotrjenih naročil</h4>
 @else
 <table class="table table-hover order-list">
