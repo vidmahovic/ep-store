@@ -1,4 +1,4 @@
-@if($confirmed->get()->isEmpty())
+@if($confirmed->isEmpty())
     <h4>Ni potrjenih naročil</h4>
 @else
 <table class="table table-hover order-list">
@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($confirmed->get() as $order)
+    @foreach($confirmed as $order)
         <tr class="order-list__item">
             <td>{{$order->id}}</td>
             <td>{{$order->created_at}}</td>

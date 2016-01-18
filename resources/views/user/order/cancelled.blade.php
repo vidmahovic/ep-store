@@ -1,7 +1,6 @@
-@if($cancelled->get()->isEmpty())
+@if($cancelled->isEmpty())
     <h4>Ni preklicanih naročil.</h4>
 @else
-    <?= dd($cancelled) ?>
     <thead>
     <tr>
         <th>Številka naročila</th>
@@ -12,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($cancelled->get() as $order)
+    @foreach($cancelled as $order)
         <tr class="order-list__item">
             <td>{{$order->id}}</td>
             <td>{{$order->created_at}}</td>

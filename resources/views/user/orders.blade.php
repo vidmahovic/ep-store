@@ -15,22 +15,22 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#pending" aria-controls="pending" role="tab" data-toggle="tab">Nepotrjena naročila</a></li>
                             <li role="presentation"><a href="#confirmed" aria-controls="confirmed" role="tab" data-toggle="tab">Potrjena Naročila</a></li>
-                            <li role="presentation"><a href="#confirmed" aria-controls="confirmed" role="tab" data-toggle="tab">Preklicana naročila</a></li>
+                            <li role="presentation"><a href="#cancelled" aria-controls="cancelled" role="tab" data-toggle="tab">Preklicana naročila</a></li>
                         </ul>
 
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="pending">
 
-                                @include('user.order.pending', ['pending' => $orders->status('pending')])
+                                @include('user.order.pending', ['pending' => $orders->status('pending')->get()])
 
                             </div>
                             <div role="tabpanel" class="tab-pane" id="confirmed">
 
-                                @include('user.order.confirmed', ['confirmed' => $orders->status('confirmed')])
+                                @include('user.order.confirmed', ['confirmed' => $orders->status('confirmed')->get()])
 
                             </div>
                             <div role="tabpanel" class="tab-pane" id="cancelled">
-                                @include('user.order.cancelled', ['cancelled' => $orders->onlyTrashed()])
+                                @include('user.order.cancelled', ['cancelled' => $orders->onlyTrashed()->get()])
                             </div>
                         </div>
                     </div>
