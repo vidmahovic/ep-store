@@ -114,7 +114,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
+        //return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
     }
 
 
@@ -122,7 +122,7 @@ class ProductController extends Controller
 
         $product->restore();
 
-        return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');
+        //return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');
     }
 
 }

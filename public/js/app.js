@@ -10,9 +10,11 @@ var epStore = {
 
             eventHandler: function() {
 
-                var _token = $('input[name="_token"]').val();
+                var _token = $('input[name="_token"]').val(),
+                    $products = $('.products')
+                ;
 
-                $('.products').on('click', '#addToCart', function(e){
+                $products.on('click', '#addToCart', function(e){
                     e.preventDefault();
 
                     var self = this;
@@ -26,6 +28,38 @@ var epStore = {
                         data: {
                             id: $(self).parents('.products__item').attr('data-id')
                         }
+                    })
+                });
+
+                $products.on('click', '#activate', function(e){
+                    e.preventDefault();
+
+                    var self = this;
+
+                    $.ajax({
+                        url: 'user/products/' + $(self).parents('.products__item').attr('data-id') + '/activate',
+                        method: "PUT",
+                        headers: {
+                            'X-CSRF-TOKEN': _token
+                        }
+                    }).success(function(){
+                        window.location.reload(true);
+                    })
+                });
+
+                $products.on('click', '#deactivate', function(e){
+                    e.preventDefault();
+
+                    var self = this;
+
+                    $.ajax({
+                        url: 'user/products/' + $(self).parents('.products__item').attr('data-id') + '/deactivate',
+                        method: "PUT",
+                        headers: {
+                            'X-CSRF-TOKEN': _token
+                        }
+                    }).success(function(){
+                        window.location.reload(true);
                     })
                 })
             },
