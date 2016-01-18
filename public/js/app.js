@@ -186,7 +186,7 @@ var epStore = {
                     status: status
                 })
             }).done(function(){
-                //window.location.reload(true);
+                window.location.reload(true);
             })
         },
 

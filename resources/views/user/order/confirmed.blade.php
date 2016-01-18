@@ -12,8 +12,12 @@
     </thead>
     <tbody>
     @foreach($confirmed as $order)
-        <tr class="order-list__item accordion-toggle" data-id="{{$order->id}}" data-toggle="collapse" data-target="#order{{$order->id}}">
-            <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+        <tr class="order-list__item" data-id="{{$order->id}}">
+            <td>
+                <button class="btn btn-default btn-xs accordion-toggle" data-toggle="collapse" data-target="#order{{$order->id}}">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </button>
+            </td>
             <td>{{$order->id}}</td>
             <td>{{$order->created_at}}</td>
             <td>{{$order->ordered_by }}</td>
