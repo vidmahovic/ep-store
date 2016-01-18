@@ -1,10 +1,11 @@
 @extends('app')
 
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Nov produkt</div>
+                <div class="panel-heading">Nov prodajalec</div>
                 <div class="panel-body">
                     @if ($errors->count() > 0)
                         <div class="alert alert-danger">
@@ -17,7 +18,9 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('user/products') }}">
+
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/user/employees') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
@@ -28,30 +31,30 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Serijska številka</label>
+                            <label class="col-md-4 control-label">Priimek</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="serial_num" value="{{ old('serial_num') }}">
+                                <input type="text" class="form-control" name="surname"value="{{ old('surname') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Cena</label>
+                            <label class="col-md-4 control-label">Elektronski naslov</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="price" value="{{ old('price') }}">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Proizvajalec</label>
+                            <label class="col-md-4 control-label">Geslo</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="manufacturer" value="{{ old('manufacturer') }}">
+                                <input type="password" class="form-control" name="password">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Zaloga</label>
+                            <label class="col-md-4 control-label">Ponovi geslo</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="stock" value="{{ old('stock') }}">
+                                <input type="password" class="form-control" name="password_confirmation">
                             </div>
                         </div>
 
@@ -65,6 +68,7 @@
                                 <button type="reset" class="btn btn-default">
                                     Pobriši vnose
                                 </button>
+
                             </div>
                         </div>
                     </form>
@@ -72,4 +76,5 @@
             </div>
         </div>
     </div>
+
 @endsection

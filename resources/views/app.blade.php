@@ -42,18 +42,29 @@
                         <li><a href="{{ url('/user/my-orders') }}">Pretekli nakupi</a></li>
                     @endif
                     @if (Auth::user()->hasRole('employee'))
-                        <li><a href="{{ url('user/customers') }}">Seznam strank</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Naročilo <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Stranka <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ url('user/orders') }}">Seznam vseh naročil</a></li>
+                                <li><a href="{{ url('user/customers/create') }}">Nova stranka</a></li>
+                                <li><a href="{{ url('user/customers') }}">Seznam strank</a></li>
                                 {{--<li><a href="{{ url('user/orders', ['status' => 'pending']) }}">Nepotrjena naročila</a></li>
                                 <li><a href="{{ url('user/orders', ['status' => 'confirmed']) }}">Potrjena naročila</a></li>--}}
                             </ul>
                         </li>
+
+                        <li><a href="{{ url('user/orders') }}">Seznam naročil</a></li>
+                        <li><a href="{{ url('user/products/create') }}">Nov artikel</a></li>
                     @endif
                     @if(Auth::user()->hasRole('admin'))
-                            <li><a href="{{ url('user/employees') }}">Seznam prodajalcev</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Prodajalec <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('user/employees/create') }}">Nov prodajalec</a></li>
+                                    <li><a href="{{ url('user/employees') }}">Seznam prodajalcev</a></li>
+                                    {{--<li><a href="{{ url('user/orders', ['status' => 'pending']) }}">Nepotrjena naročila</a></li>
+                                    <li><a href="{{ url('user/orders', ['status' => 'confirmed']) }}">Potrjena naročila</a></li>--}}
+                                </ul>
+                            </li>
                     @endif
                 @endif
             </ul>

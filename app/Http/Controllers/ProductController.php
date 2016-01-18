@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('user.product.create');
     }
 
     /**
@@ -56,7 +56,16 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        Product::create([
+            'name' => $request->get('name'),
+            'serial_num' => $request->get('serial_num'),
+            'price' => $request->get('price'),
+            'manufacturer' => $request->get('manufacturer'),
+            'stock' => $request->get('stock'),
+            'image_path' => $request->get('image_path')
+        ]);
 
+        return redirect('/')->with('message', 'Artikel je bil uspešno dodan.');
     }
 
     /**
@@ -118,7 +127,9 @@ class ProductController extends Controller
     }
 
 
-    public function activate(Product $product) {
+    public function activate($id) {
+
+        $product = Product::withTrashed()->find($id);
 
         $product->restore();
 

@@ -26,7 +26,7 @@ class StoreProductRequest extends Request
     {
         return [
             'name' => 'required|alpha_num|max:255',
-            'serial_num' => 'alpha_num|unique',
+            'serial_num' => 'alpha_num|unique:products,serial_num',
             'manufacturer' => 'required|alpha_num|max:255',
             'image_path' => 'url',
             'stock' => 'integer',

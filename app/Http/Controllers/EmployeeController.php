@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.employee.create');
     }
 
     /**
@@ -48,9 +49,21 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
-        //
+        $user = User::create([
+            'name' => $request->get('name'),
+            'surname' => $request->get('surname'),
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
+        ]);
+
+        $employee = new Employee;
+
+        $employee->user()->save($user);
+
+        return redirect('/')->with('message', 'Kreiranje prodajalca je bilo uspešno.');
+
     }
 
     /**

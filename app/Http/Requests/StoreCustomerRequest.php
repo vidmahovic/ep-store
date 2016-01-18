@@ -25,9 +25,9 @@ class StoreCustomerRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'reqired|alpha|max:255',
-            'surname' => 'required|alpha|255',
-            'street' => 'required|aplha_num|max:255',
+            'name' => 'required|alpha|max:255',
+            'surname' => 'required|alpha|max:255',
+            'street' => 'required|max:100',
             'city_id' => 'required|exists:municipalities,id',
             'phone' => 'sometimes|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',

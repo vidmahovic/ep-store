@@ -48,7 +48,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return 'Create view for storing a customer';
+        return view('user.customer.create');
     }
 
     /**
