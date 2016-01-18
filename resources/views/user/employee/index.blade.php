@@ -2,7 +2,7 @@
 
 @section('content')
     @if($employees->isEmpty())
-
+        <h3 class="text-center">V bazi ni prodajalcev.</h3>
     @else
         <table class="table table-hover order-list">
             <thead>
@@ -25,9 +25,11 @@
                     </td>
                     <td>{{ $employee->user->created_at }}</td>
                     <td>
+                        @if(! $employee->trashed())
                         <a href="{{ url('user/employees/'.$employee->id.'/edit') }}" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
+                        @endif
                     </td>
                     <td class="text-center">
                         @if($employee->trashed())

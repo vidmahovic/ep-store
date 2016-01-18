@@ -21,7 +21,7 @@ class CustomerController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('customer', ['only' => ['show', 'edit', 'update']]);
+        $this->middleware('customer', ['only' => ['show']]);
         //$this->middleware('employee');
     }
 
@@ -36,7 +36,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with('user')->paginate(30);
+        $customers = Customer::withTrashed()->paginate(30);
 
         return view('user.customer.index')->with('customers', $customers);
     }
@@ -136,11 +136,20 @@ class CustomerController extends Controller
         //
     }
 
-    public function deactivate($id) {
+    public function deactivate(Customer $customer) {
+
+        $customer->delete();
+        $customer->user->delete();
 
     }
 
     public function activate($id) {
+
+        $customer = Customer::withTrashed()->find($id);
+        $user = User::withTrashed()->where('userable_id', $customer->id)->first();
+
+        $customer->restore();
+        $user->restore();
 
     }
 }

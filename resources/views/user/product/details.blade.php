@@ -11,7 +11,7 @@
             <h5 class="pull-right">{{ $product->voters()->count() }} ocen</h5>
             <p>
                 @if($product->voters()->count() !== 0)
-                    @include('user.product.rating', ['mean' => $product->voters()->sum('vote') / $product->voters()->count()])
+                    @include('user.product.rating', ['rate' => $product->voters()->sum('vote') / $product->voters()->count()])
                 @else
                     <span class="fa fa-star-o"></span>
                     <span class="fa fa-star-o"></span>

@@ -111,6 +111,7 @@ class ProductController extends Controller
     }
 
     public function deactivate(Product $product) {
+
         $product->delete();
 
         return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
@@ -118,6 +119,7 @@ class ProductController extends Controller
 
 
     public function activate(Product $product) {
+
         $product->restore();
 
         return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');

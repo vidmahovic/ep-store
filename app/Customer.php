@@ -13,6 +13,8 @@ class Customer extends Model
 
     protected $table = 'customers';
 
+    protected $dates = ['deleted_at'];
+
     public $timestamps = false;
 
     protected $fillable = ['street', 'phone', 'city_id'];

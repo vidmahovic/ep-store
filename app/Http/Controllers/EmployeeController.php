@@ -108,16 +108,17 @@ class EmployeeController extends Controller
         $employee->delete();
         $employee->user->delete();
 
-        return redirect('/')->with('message', 'Deaktivacija uspešna.');
+        return redirect()->back();
     }
 
-    public function activate(Employee $employee) {
+    public function activate($id) {
 
-        dd($employee);
+        $employee = Employee::withTrashed()->where('id', $id)->first();
+        $user = User::withTrashed()->where('userable_id', $id)->first();
 
         $employee->restore();
-        $employee->user->restore();
+        $user->restore();
 
-        return redirect('/')->with('message', 'Aktivacija uspešna.');
+        return redirect()->back();
     }
 }

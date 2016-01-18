@@ -119,17 +119,6 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
-    }
-
 
     /**
      * Call: PUT (/orders/{orders}/deactivate)
@@ -141,6 +130,18 @@ class OrderController extends Controller
      */
     public function deactivate($id)
     {
-        /* TODO: if an order has state pending, then it will be declined, if not, it'll be cancelled. */
+        $order = Order::find($id);
+        $state = $order->state()->first();
+
+        if($state->name == 'pending') {
+            $order->state_id = OrderState::where('name', 'declined')->first()->id;
+            $order->delete();
+        }
+        else if($order->name == 'confirmed') {
+            $order->state_id = OrderState::where('name', 'cancelled')->first()->id;
+            $order->delete();
+        } else {
+
+        }
     }
 }

@@ -30,17 +30,17 @@ Route::group(['prefix' => 'api/v1/'], function() {
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
     Route::put('customers/{customers}/deactivate', 'CustomerController@deactivate');
-    Route::put('customers/{customers}/activate', 'CustomerController@activate');
+    Route::put('customers/{id}/activate', 'CustomerController@activate');
     Route::resource('customers', 'CustomerController');
 
-    Route::put('employees/{employees}/activate', 'EmployeeController@activate');
+    Route::put('employees/{id}/activate', 'EmployeeController@activate');
     Route::put('employees/{employees}/deactivate', 'EmployeeController@deactivate');
     Route::resource('employees', 'EmployeeController');
 
     Route::get('/', 'HomeController@index');
 
     Route::post('users/{users}/deactivate', 'UserController@deactivate');
-    Route::post('users/{users}/activate', 'UserController@activate');
+    Route::post('users/{id}/activate', 'UserController@activate');
 
     Route::put('users/{users}', 'UserController@update');
 
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::put('orders/{orders}', 'OrderController@deactivate');
     Route::resource('orders', 'OrderController');
 
-    Route::put('products/{products}/activate', 'ProductController@activate');
+    Route::put('products/{id}/activate', 'ProductController@activate');
     Route::put('products/{products}/deactivate', 'ProductController@deactivate');
     Route::resource('products', 'ProductController');
 

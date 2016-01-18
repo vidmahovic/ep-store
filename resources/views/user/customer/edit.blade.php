@@ -19,7 +19,7 @@
 
                     {!! Form::model($customer, ['route' => ['user.customers.update', $customer->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
-                    <input type="hidden" name="id" value="{{ $customer->id }}">
+                    <input type="hidden" name="id" value="{{ $customer->user->id }}">
 
                     <div class="form-group">
                         {!! Form::label('email', 'Elektronski naslov', ['class' => 'col-md-4 control-label']) !!}
