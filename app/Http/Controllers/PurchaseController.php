@@ -33,14 +33,19 @@ class PurchaseController extends Controller
         if(session('cart')) {
 
             $quantities = [];
+            $total = 0.0;
 
             foreach(session('cart') as $key => $val) {
+
+                $total += floatval(Product::find($key)->price) * floatval($val);
                 $this->collection->push(Product::find($key));
                 $quantities[$key] = $val;
             }
+
             return view('user.purchase')->with([
                 'products' => $this->collection,
-                'quantities' => $quantities
+                'quantities' => $quantities,
+                'total' => $total
             ]);
         }
     }
