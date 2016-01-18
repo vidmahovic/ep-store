@@ -157,7 +157,7 @@ var epStore = {
                     self.setOrderStatus('confirmed', id, _token);
                 }
                 else if($(this).hasClass('cancel')) {
-                    self.setOrderStatus('cancelled', id, _token);
+                    self.setOrderStatus('declined', id, _token);
                 }
             });
 
@@ -167,8 +167,8 @@ var epStore = {
 
                 e.preventDefault();
 
-                if($(this).hasClass('cancel')) {
-                    self.setOrderStatus('declined', id, _token);
+                if($(this).hasClass('deactivate')) {
+                    self.setOrderStatus('cancelled', id, _token);
                 }
             });
         },
@@ -186,7 +186,7 @@ var epStore = {
                     status: status
                 })
             }).done(function(){
-                window.location.reload(true);
+                //window.location.reload(true);
             })
         },
 
