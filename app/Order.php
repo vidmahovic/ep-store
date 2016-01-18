@@ -22,7 +22,9 @@ class Order extends Model
 
     protected $visible = ['id', 'ordered_by', 'acquired_by', 'created_at'];
 
-    protected $fillable = ['ordered_by', 'acquired_by', 'state_id'];
+    protected $fillable = ['ordered_by', 'acquired_by', 'state_id', 'deleted_at'];
+
+    protected $dates = ['deleted_at'];
 
 
     /**

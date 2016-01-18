@@ -7,6 +7,7 @@ use App\Events\OrderWasPurchased;
 use App\Order;
 use App\OrderState;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -106,7 +107,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $state_id = OrderState::where('name', $request->get('status'))->first()->id;
 
         if(! is_null($state_id)) {
@@ -133,13 +133,17 @@ class OrderController extends Controller
         $order = Order::find($id);
         $state = $order->state()->first();
 
+        dd($state);
+
         if($state->name == 'pending') {
             $order->state_id = OrderState::where('name', 'declined')->first()->id;
-            $order->delete();
+            $order->deleted_at = Carbon::now();
+            $order->save();
         }
         else if($order->name == 'confirmed') {
             $order->state_id = OrderState::where('name', 'cancelled')->first()->id;
-            $order->delete();
+            $order->deleted_at = Carbon::now();
+            $order->save();
         } else {
 
         }
