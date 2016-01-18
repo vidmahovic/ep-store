@@ -25,7 +25,7 @@ class UpdateProductRequest extends Request
     {
         return [
             'name' => 'required|alpha_num|max:255',
-            'serial_num' => 'string',
+            'serial_num' => 'string|unique:products,serial_num,'.$this->request->get('id'),
             'price' => 'required|numeric',
             'manufacturer' => 'required|string',
             'image_path' => 'url',

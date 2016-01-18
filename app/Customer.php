@@ -18,7 +18,7 @@ class Customer extends Model
     protected $fillable = ['street', 'phone', 'city_id'];
 
     public function user() {
-        return $this->morphOne(User::class, 'userable');
+        return $this->morphOne(User::class, 'userable')->withTrashed();
     }
 
     public function log() {

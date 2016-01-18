@@ -14,9 +14,7 @@ class UpdateEmployeeRequest extends Request
      */
     public function authorize()
     {
-
         return auth()->user()->hasRole('admin');
-
     }
 
     /**
@@ -27,7 +25,9 @@ class UpdateEmployeeRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|alpha|max:255',
+            'surname' => 'required|alpha|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$this->request->get('id'),
         ];
     }
 }

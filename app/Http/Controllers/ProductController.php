@@ -15,7 +15,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('employee');
+        $this->middleware('auth');
+        $this->middleware('employee', ['except' => 'show']);
     }
 
 
@@ -27,7 +28,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        if(auth()->user()->hasRole('employee')) {
+            $products = Product::withTrashed()->get();
+        } else {
+            $products = Product::all();
+        }
         return view('list_products')->with(['products' => $products]);
     }
 
@@ -74,9 +79,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+
+        return view('user.product.edit')->with('product', $product);
     }
 
     /**
@@ -103,4 +109,18 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function deactivate(Product $product) {
+        $product->delete();
+
+        return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
+    }
+
+
+    public function activate(Product $product) {
+        $product->restore();
+
+        return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');
+    }
+
 }

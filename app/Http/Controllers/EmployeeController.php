@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Http\Requests\UpdateEmployeeRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -25,7 +27,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(30);
+        $employees = Employee::withTrashed()->paginate(30);
 
         return view('user.employee.index')->with('employees', $employees);
     }
@@ -81,9 +83,13 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
-        //
+        $employee = User::findOrFail($request->get('id'));
+
+        $employee->update($request->except('id'));
+
+        return redirect('/user')->with('message', 'Uspešno ste posodobili prodajalca.');
     }
 
     /**
@@ -95,5 +101,23 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deactivate(Employee $employee)
+    {
+        $employee->delete();
+        $employee->user->delete();
+
+        return redirect('/')->with('message', 'Deaktivacija uspešna.');
+    }
+
+    public function activate(Employee $employee) {
+
+        dd($employee);
+
+        $employee->restore();
+        $employee->user->restore();
+
+        return redirect('/')->with('message', 'Aktivacija uspešna.');
     }
 }

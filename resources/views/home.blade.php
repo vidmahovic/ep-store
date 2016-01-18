@@ -45,7 +45,16 @@
                                             @endif
                                         @endif
                                         @if(Auth::check() && Auth::user()->hasRole('employee'))
-                                            <a type="button" href="{{ url('user/products/'.$product->id) }}" class="btn btn-warning btn-sm">Uredi izdelek</a>
+                                            @if($product->trashed())
+                                                    {!! Form::open(['url' => 'user/products/'.$product->id.'/activate', 'method' => 'PUT']) !!}
+                                                        <button type="submit" class="btn btn-info btn-sm">Aktiviraj</button>
+                                                    {!! Form::close() !!}
+                                            @else
+                                                <a type="button" href="{{ url('user/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm">Uredi izdelek</a>
+                                                {!! Form::open(['url' => 'user/products/'.$product->id.'/deactivate', 'method' => 'PUT']) !!}
+                                                    <button type="submit" class="btn btn-danger btn-sm">Deaktiviraj</button>
+                                                {!! Form::close() !!}
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

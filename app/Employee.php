@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
+    use SoftDeletes;
 
     public function __construct(array $attributes = [])
     {
@@ -17,10 +18,12 @@ class Employee extends Model
 
     public $timestamps = false;
 
+    protected $dates = ['deleted_at'];
+
     protected $with = ['user'];
 
     public function user() {
-        return $this->morphOne(User::class, 'userable');
+        return $this->morphOne(User::class, 'userable')->withTrashed();
     }
 
     public function log() {
