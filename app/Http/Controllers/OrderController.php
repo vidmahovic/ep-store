@@ -29,7 +29,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'desc');
+        $orders = new Order;
 
         return view('user.orders')->with('orders', $orders);
     }
@@ -105,7 +105,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
 
         $state_id = OrderState::where('name', $request->get('status'))->first()->id;
 

@@ -41,7 +41,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 
     Route::post('users/{users}/deactivate', 'UserController@deactivate');
     Route::post('users/{users}/activate', 'UserController@activate');
-    Route::resource('users', 'UserController');
+
+    Route::put('users/{users}', 'UserController@update');
 
     /*Route::get('orders/{status}', 'OrderController@index');*/
     Route::resource('orders', 'OrderController');

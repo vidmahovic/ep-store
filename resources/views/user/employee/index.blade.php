@@ -29,17 +29,19 @@
                     </td>
                     <td>{{ $employee->user->created_at }}</td>
                     <td>
-                        <a href="{{ url('user/employees/'.$employee->id) }}" type="button" class="btn btn-default">
+                        <a href="{{ url('user/employees/'.$employee->id.'/edit') }}" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
                     </td>
                     <td>
                         @if(! $employee->user->trashed())
-                            <div class="checkbox text-center">
-                                <label>
-                                    <input type="checkbox">
-                                </label>
-                            </div>
+                            <a href="{{ url('user/employees/'.$employee->id.'/edit') }}" type="button" class="btn btn-default">
+                                <span class="fa fa-user" aria-hidden="true"></span>
+                            </a>
+                        @else
+                            <a href="{{ url('user/employees/'.$employee->id.'/edit') }}" type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </a>
                         @endif
                     </td>
                 </tr>

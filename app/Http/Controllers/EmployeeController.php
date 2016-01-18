@@ -13,9 +13,9 @@ class EmployeeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin');
+        //$this->middleware('admin');
         //$this->middleware('employee');
-        $this->middleware('employee', ['only' => ['edit', 'update', 'show']]);
+        //$this->middleware('employee', ['only' => ['edit', 'update', 'show']]);
     }
 
     /**
@@ -69,9 +69,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        return view('user.employee.edit')->with('employee', $employee);
     }
 
     /**

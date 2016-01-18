@@ -1,9 +1,6 @@
 @extends('app')
 
 @section('content')
-    @extends('app')
-
-@section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -20,28 +17,28 @@
                         </div>
                     @endif
 
-                    {!! Form::model($user, ['route' => ['user.customers.update', $user->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($user, ['url' => 'user/users/'.$user->id, 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
 
                     <input type="hidden" name="id" value="{{ $user->id }}">
 
                     <div class="form-group">
                         {!! Form::label('email', 'Elektronski naslov', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::email('email', $user->user->email, ['class' => 'form-control']) !!}
+                            {!! Form::email('email', $user->email, ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('name', 'Ime', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('name', $user->user->name, ['class' => 'form-control']) !!}
+                            {!! Form::text('name', $user->name, ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('surname', 'Priimek', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('surname', $user->user->surname, ['class' => 'form-control']) !!}
+                            {!! Form::text('surname', $user->surname, ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
@@ -55,41 +52,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-
-
-
-<div class="form-group">
-{!! Form::model($user, ['route' => ['user.users.update', $user->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
-
-    <div class="form-group">
-        {!! Form::label('email', 'Elektronski naslov', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::email('email', ['class' => 'form-control']) !!}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('name', 'Ime', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('name', ['class' => 'form-control']) !!}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('surname', 'Priimek', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('surname', ['class' => 'form-control']) !!}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {!! Form::button('Prekliči', ['class' => 'btn btn-default']) !!}
-        {!! Form::reset('Pobriši vnose', ['class' => 'btn btn-warning']) !!}
-        {!! Form::submit('Posodobi', ['class' => 'btn btn-success']) !!}
-    </div>
-
-{!! Form::close() !!}
-</div>
 @endsection

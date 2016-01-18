@@ -1,9 +1,10 @@
-@if($orders->isEmpty())
+@if($pending->get()->isEmpty())
     <h4>Ni nepotrjenih naročil</h4>
 @else
 <table class="table table-hover order-list">
     <thead>
     <tr>
+        <th></th>
         <th>Številka naročila</th>
         <th>Datum</th>
         <th>Stranka</th>
@@ -11,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($orders as $order)
+    @foreach($pending->get() as $order)
         <tr class="order-list__item accordion-toggle" data-toggle="collapse" data-target="#order{{$order->id}}">
             <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
             <td>{{$order->id}}</td>

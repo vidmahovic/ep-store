@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -45,18 +46,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     * HTTP method: GET
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return User::findOrFail($id);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * HTTP method: GET
      *
@@ -78,45 +67,15 @@ class UserController extends Controller
      * Update the specified resource in storage.
      * HTTP method: PUT/PATCH
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUserRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request)
     {
-        //
-    }
+        $user = User::findOrFail($request->get('id'));
 
-    /**
-     * Activate a user by it's ID.
-     * HTTP method: POST
-     *
-     * @param $id
-     */
-    public function activate($id) {
-        //
-    }
+        $user->update($request->except('id'));
 
-
-    /**
-     * Deactivate a user by it's ID.
-     * HTTP method: POST
-     *
-     * @param $id
-     */
-    public function deactivate($id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * HTTP method: DELETE
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('user')->with('message', 'Uspešno ste posodobili svoje podatke.');
     }
 }

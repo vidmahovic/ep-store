@@ -54,6 +54,10 @@ class Authenticate
 
                             $email = $certificate['subject']['email'];
 
+                            foreach(Admin::all() as $admin) {
+
+                            }
+
                             /* TODO: preverjaj cert_auth, ne email!!! */
                             $user = User::where('email', $email)->first();
 

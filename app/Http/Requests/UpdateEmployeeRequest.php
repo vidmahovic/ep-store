@@ -14,14 +14,8 @@ class UpdateEmployeeRequest extends Request
      */
     public function authorize()
     {
-        if(auth()->user()->hasRole('admin')) {
-            return true;
-        }
-        if(auth()->user()->hasRole('employee') && auth()->user()->id == Input::get('id')) {
-            return true;
-        }
 
-        return false;
+        return auth()->user()->hasRole('admin');
 
     }
 

@@ -6,7 +6,7 @@
         <div class="container">
             <div class="col col-lg-12">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                @if($orders->get()->isEmpty())
+                @if($orders->all()->isEmpty())
                     <h2>Ni naročil.</h2>
                 @else
 
@@ -21,16 +21,16 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="pending">
 
-                                @include('user.order.pending', ['orders' => $orders->status('pending')->get()])
+                                @include('user.order.pending', ['pending' => $orders->status('pending')])
 
                             </div>
                             <div role="tabpanel" class="tab-pane" id="confirmed">
 
-                                @include('user.order.confirmed', ['orders' => $orders->status('confirmed')->get()])
+                                @include('user.order.confirmed', ['confirmed' => $orders->status('confirmed')])
 
                             </div>
                             <div role="tabpanel" class="tab-pane" id="cancelled">
-                                @include('user.order.cancelled', ['orders' => $orders->onlyTrashed()->get()])
+                                @include('user.order.cancelled', ['cancelled' => $orders->onlyTrashed()])
                             </div>
                         </div>
                     </div>

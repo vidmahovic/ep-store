@@ -30,7 +30,7 @@ class StoreCustomerRequest extends Request
             'street' => 'required|aplha_num|max:255',
             'city_id' => 'required|exists:municipalities,id',
             'phone' => 'sometimes|string|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|confirmed|min:6',
         ];
     }
