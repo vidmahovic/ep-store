@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function index()
     {
         if(auth()->user()->hasRole('employee')) {
-            $products = Product::withTrashed()->get();
+            $products = Product::withTrashed()->all();
         } else {
             $products = Product::all();
         }
