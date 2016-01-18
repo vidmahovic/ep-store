@@ -126,21 +126,22 @@ class OrderController extends Controller
      * Deactivate an order. This will serve for: declining an order (before it's been processed) and cancelling it (after it's been processed)
      * In bothe cases, we call delete() method on a model, which soft-deletes a record (sets the deleted_at timestamp). So if an employee does
      * one of above mentioned actions, you should call this function.
-     * @param Order $order
+     * @param $id
      */
-    public function deactivate(Order $order)
+    public function deactivate($id)
     {
+        $order = Order::find($id);
         $state = $order->state()->first();
 
         if($state->name == 'pending') {
             $order->state_id = OrderState::where('name', 'declined')->first()->id;
+            $order->deleted_at = Carbon::now();
             $order->save();
-            $order->delete();
         }
         else if($order->name == 'confirmed') {
             $order->state_id = OrderState::where('name', 'cancelled')->first()->id;
+            $order->deleted_at = Carbon::now();
             $order->save();
-            $order->delete();
         } else {
 
         }

@@ -4,10 +4,12 @@
 <table class="table table-hover order-list">
     <thead>
     <tr>
+        <th></th>
         <th>Številka naročila</th>
         <th>Datum</th>
         <th>Šifra stranke</th>
         <th>Prevzel</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>

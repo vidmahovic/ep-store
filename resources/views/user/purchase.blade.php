@@ -32,6 +32,15 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                <div class="col-lg-12 text-right">
+                                    <br>
+                                    <br>
+                                    <p>
+                                        <strong>Znesek: {{$total}} EUR</strong>
+                                    </p>
+                                    <br>
+                                    <br>
+                                </div>
                                 {!! Form::open(['route' => 'user.orders.store', 'method' => 'POST']) !!}
                                     <button type="submit" class="btn btn-success pull-right">Zaključi nakup</button>
                                 {!! Form::close() !!}
