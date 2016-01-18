@@ -32,28 +32,22 @@
                                     <h5>{{ $product->manufacturer }}</h5>
                                 </div>
                                 <br>
-                                <div class="row">
-                                    <div class="col col-xs-6 text-left">
-                                        <a type="button" href="{{ url('products/'.$product->id) }}" class="btn btn-primary btn-sm">Podrobnosti</a>
-                                    </div>
-                                    <div class="col col-xs-6 text-right">
+                                <div class="row text-center">
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                                            <a type="button" href="{{ url('products/'.$product->id) }}" class="btn btn-primary btn-xs">Podrobnosti</a>
                                         @if(Auth::guest() || Auth::user()->hasRole('customer'))
                                             @if($product->stock > 0)
-                                                <button id="addToCart" type="button" class="btn btn-success btn-sm">Dodaj v košarico</button>
+                                                <button id="addToCart" type="button" class="btn btn-success btn-xs">Dodaj v košarico</button>
                                             @else
-                                                <button id="addToCart" type="button" class="btn btn-danger btn-sm disabled">Ni na zalogi</button>
+                                                <button type="button" class="btn btn-danger btn-xs disabled">Ni na zalogi</button>
                                             @endif
                                         @endif
                                         @if(Auth::check() && Auth::user()->hasRole('employee'))
                                             @if($product->trashed())
-                                                    {!! Form::open(['url' => 'user/products/'.$product->id.'/activate', 'method' => 'PUT']) !!}
-                                                        <button type="submit" class="btn btn-info btn-sm">Aktiviraj</button>
-                                                    {!! Form::close() !!}
+                                                <button id="activate" type="button" class="btn btn-info btn-xs">Aktiviraj</button>
                                             @else
                                                 <a type="button" href="{{ url('user/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm">Uredi izdelek</a>
-                                                {!! Form::open(['url' => 'user/products/'.$product->id.'/deactivate', 'method' => 'PUT']) !!}
-                                                    <button type="submit" class="btn btn-danger btn-sm">Deaktiviraj</button>
-                                                {!! Form::close() !!}
+                                                <button id="deactivate" type="button" class="btn btn-danger btn-xs">Deaktiviraj</button>
                                             @endif
                                         @endif
                                     </div>

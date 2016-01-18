@@ -113,14 +113,14 @@ class ProductController extends Controller
     public function deactivate(Product $product) {
         $product->delete();
 
-        return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
+        //return redirect('/')->with('message', 'Izdelek uspešno deaktiviran.');
     }
 
 
     public function activate(Product $product) {
         $product->restore();
 
-        return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');
+        //return redirect('/')->with('message', 'Izdelek uspešno aktiviran.');
     }
 
 }
