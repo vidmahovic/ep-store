@@ -14,9 +14,9 @@
                 @foreach($order->products()->get() as $product)
                     <tr>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $product->price }}€</td>
+                        <td>{{ $product->price }} EUR</td>
                         <td>{{ $product->pivot->quantity }}</td>
-                        <td>{{ number_format($product->pivot->quantity * $product->price, 2) }}€</td>
+                        <td>{{ number_format($product->pivot->quantity * $product->price, 2) }} EUR</td>
                     </tr>
                 @endforeach
                 </tbody>

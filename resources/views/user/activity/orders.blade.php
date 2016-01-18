@@ -18,7 +18,7 @@
                                 <th>Status</th>
                                 <th>Cena</th>
                                 <th>Poštnina</th>
-                                <th>Skupaj</th>
+                                <th>Skupna cena</th>
                             </tr>
                             </thead>
 
@@ -28,9 +28,9 @@
                                         <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                                         <td>{{ $order->id }}</td>
                                         <td>@include('user.activity.order-states.order-'.$order->state()->first()->name)</td>
-                                        <td>{{ $order->price }}</td>
-                                        <td>{{ $order->shipping }}</td>
-                                    <td>{{ number_format($order->shipping + $order->price, 2) }}</td>
+                                        <td>{{ $order->price }} EUR</td>
+                                        <td>{{ $order->shipping }} EUR</td>
+                                        <td>{{ number_format($order->shipping + $order->price, 2) }} EUR</td>
                                 </tr>
 
                                 @include('user.activity.order-details', ['order' => $order])

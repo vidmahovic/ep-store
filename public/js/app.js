@@ -150,38 +150,41 @@ var epStore = {
             ;
 
             $('#pending').on('click', 'button.btn', function(e) {
-                e.preventDefault();
+
+                var id = $(this).parents('.order-list__item').attr('data-id');
 
                 if($(this).hasClass('confirm')) {
-                    self.setOrderStatus('completed', _token);
+                    self.setOrderStatus('confirmed', id, _token);
                 }
                 else if($(this).hasClass('cancel')) {
-                    self.setOrderStatus('cancelled', _token);
+                    self.setOrderStatus('declined', id, _token);
                 }
             });
 
             $('#confirmed').on('click', 'button.btn', function(e) {
+
+                var id = $(this).parents('.order-list__item').attr('data-id');
+
                 e.preventDefault();
 
-                if($(this).hasClass('cancel')) {
-                    self.setOrderStatus('declined', _token);
+                if($(this).hasClass('deactivate')) {
+                    self.setOrderStatus('cancelled', id, _token);
                 }
             });
         },
 
-        setOrderStatus: function(status, _token) {
+        setOrderStatus: function(status, id,_token) {
 
             $.ajax({
-                url: 'orders',
-                method: 'POST',
+                url: 'orders/' + id,
+                method: 'PUT',
                 contentType: 'application/json',
                 headers: {
                     'X-CSRF-TOKEN': _token
                 },
-                data: {
-                    _method:"PUT",
+                data: JSON.stringify({
                     status: status
-                }
+                })
             }).done(function(){
                 window.location.reload(true);
             })

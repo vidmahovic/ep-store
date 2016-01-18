@@ -45,6 +45,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::put('users/{users}', 'UserController@update');
 
     /*Route::get('orders/{status}', 'OrderController@index');*/
+    Route::put('orders/{orders}', 'OrderController@deactivate');
     Route::resource('orders', 'OrderController');
 
     Route::put('products/{products}/activate', 'ProductController@activate');
