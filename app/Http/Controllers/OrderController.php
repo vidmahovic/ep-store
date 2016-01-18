@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -113,7 +114,7 @@ class OrderController extends Controller
             $order = Order::findOrFail($id);
             $order->update([
                 'state_id' => $state_id,
-                'acquired_by' => '',
+                'acquired_by' => Auth::user()->userable->id,
             ]);
         }
     }
