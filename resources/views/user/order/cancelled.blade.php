@@ -4,6 +4,7 @@
     <table class="table table-hover order-list">
     <thead>
     <tr>
+        <th></th>
         <th>Številka naročila</th>
         <th>Datum</th>
         <th>Stranka</th>

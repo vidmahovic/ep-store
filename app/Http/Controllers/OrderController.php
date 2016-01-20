@@ -134,6 +134,7 @@ class OrderController extends Controller
 
         if($state->name == 'pending') {
             $order->state_id = OrderState::where('name', 'declined')->first()->id;
+            $order->acquired_by = auth()->user()->userable_id;
             $order->save();
             $order->delete();
             return redirect('/')->with('message', 'Uspešen preklic naročila.');
