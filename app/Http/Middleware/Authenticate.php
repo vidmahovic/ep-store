@@ -45,7 +45,7 @@ class Authenticate
 
             if(config('app.client_certificate')) {
 
-                if(isset($_SERVER['SSL_CLIENT_CERT'])) {
+                if(isset($_SERVER['CLIENT_CERTIFICATE']) && $_SERVER['CLIENT_CERTIFICATE']) {
 
                     $certificate = openssl_x509_parse($_SERVER['SSL_CLIENT_CERT']) ;
                     $authenticated = $this->auth->user();
