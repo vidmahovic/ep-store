@@ -26,7 +26,9 @@
             <td>{{ $order->acquirer()->first()->user->name }} {{ $order->acquirer()->first()->user->surname }}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="submit" class="btn btn-warning btn-xs deactivate">Storniraj</button>
+                    {!!  Form::open(['url' => 'user/orders/'.$order->id.'/deactivate', 'method' => 'PUT']) !!}
+                        <button type="submit" class="btn btn-warning btn-xs">Storniraj</button>
+                    {!! Form::close() !!}
                 </div>
             </td>
         </tr>

@@ -241,9 +241,9 @@ var epStore = {
             case 'purchase':
                 this.purchase.init();
                 break;
-            case 'orders':
+            /*case 'orders':
                 this.orders.init();
-                break;
+                break;*/
         }
 
     }

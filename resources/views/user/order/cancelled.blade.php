@@ -1,6 +1,7 @@
 @if($cancelled->isEmpty())
     <h4>Ni preklicanih naročil.</h4>
 @else
+    <table class="table table-hover order-list">
     <thead>
     <tr>
         <th>Številka naročila</th>
@@ -21,8 +22,8 @@
             <td>{{$order->id}}</td>
             <td>{{$order->created_at}}</td>
             <td><a href="{{ route('user.customers.show', [$order->ordered_by]) }}">{{$order->subscriber->user->name }} {{ $order->subscriber->user->surname }}</a></td>
-            <td>{{ $order->state()->name }}</td>
-            <td>{{ $order->acquirer()->user->name }} {{ $order->acquirer()->user->surname }}</td>
+            <td>{!! $order->getStatusSpan() !!}</td>
+            <td>{{ $order->acquirer->user->name }} {{ $order->acquirer->user->surname }}</td>
 <!--            <td>
                 <div class="btn-group" role="group" aria-label="...">
                     <button type="submit" class="btn btn-success btn-xs confirm">Potrdi</button>
@@ -33,4 +34,5 @@
         @include('user.activity.order-details', ['order' => $order])
     @endforeach
     </tbody>
+    </table>
 @endif

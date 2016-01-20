@@ -71,4 +71,21 @@ class Order extends Model
         return $query->where('state_id', $state_id);
     }
 
+    public function getStatusSpan() {
+        if($this->trashed()) {
+            if($this->state()->first()->name == 'cancelled')
+                return '<span style="color: #d75d4f">stornirano</span>';
+            else {
+                return '<span style="color: #d75d4f">preklicano</span>';
+            }
+        } else {
+            if($this->state()->first()->name == 'pending') {
+                return '<span style="color: #2e6da4">nepotrjeno</span>';
+            }
+            return '<span style="color: #51d738">potrjeno</span>';
+        }
+
+    }
+
+
 }

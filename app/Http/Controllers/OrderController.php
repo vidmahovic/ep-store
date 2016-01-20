@@ -133,17 +133,19 @@ class OrderController extends Controller
         $order = Order::find($id);
         $state = $order->state()->first();
 
+
         if($state->name == 'pending') {
             $order->state_id = OrderState::where('name', 'declined')->first()->id;
-            $order->deleted_at = Carbon::now();
             $order->save();
+            $order->delete();
+            return redirect('/')->with('message', 'Uspešen preklic naročila.');
         }
-        else if($order->name == 'confirmed') {
+        else {
             $order->state_id = OrderState::where('name', 'cancelled')->first()->id;
-            $order->deleted_at = Carbon::now();
             $order->save();
-        } else {
-
+            $order->delete();
+            return redirect('/')->with('message', 'Uspešen storno naročila.');
         }
+
     }
 }

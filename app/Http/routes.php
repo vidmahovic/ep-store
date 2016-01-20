@@ -61,7 +61,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'no-customer']], func
     Route::put('users/{users}', 'UserController@update');
 
     /*Route::get('orders/{status}', 'OrderController@index');*/
-    Route::put('orders/{orders}', 'OrderController@deactivate');
+    Route::put('orders/{orders}/deactivate', 'OrderController@deactivate');
+    //Route::put('orders/{id}/activate', 'OrderController@activate');
     Route::resource('orders', 'OrderController');
 
     Route::put('products/{id}/activate', 'ProductController@activate');
