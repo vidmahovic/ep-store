@@ -47,16 +47,17 @@ class Authenticate
 
                 if(isset($_SERVER['CLIENT_CERTIFICATE']) && $_SERVER['CLIENT_CERTIFICATE']) {
 
-                    $certificate = openssl_x509_parse($_SERVER['SSL_CLIENT_CERT']) ;
+                    $client_email = $_SERVER['SSL_CLIENT_S_DN_Email'];
+                    $client_org_unit = $_SERVER['SSL_CLIENT_S_DN_OU'];
                     $authenticated = $this->auth->user();
 
                     if(is_null($authenticated->userable->cert_auth)) {
                         return redirect()->guest('auth/login')->with('error_message', 'Nimate vloge, za katero bi vzdrževali certifikate.');
                     }
 
-                    if($authenticated->userable->cert_auth == $certificate['subject']['email']) {
+                    if($authenticated->userable->cert_auth == $client_email) {
 
-                        switch($certificate) {
+                        switch($client_org_unit) {
 
                             case 'retail':
                                 if(auth()->user()->hasRole('employee')) {
