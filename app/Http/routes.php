@@ -72,6 +72,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'no-customer']], func
     Route::get('my-orders', 'HomeController@orders');
     Route::get('my-settings', 'HomeController@settings');
     Route::get('my-profile', 'HomeController@profile');
+    Route::put('users/{id}', 'UserController@update');
 });
 
 /*Route::group(['prefix' => 'user', 'middleware' => 'auth:employee'], function() {

@@ -107,16 +107,14 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
 
-        $state_id = OrderState::where('name', $request->get('status'))->first()->id;
+        $order = Order::findOrFail($id);
 
-        if(! is_null($state_id)) {
+        $order->update([
+            'state_id' => $request->get('state_id'),
+            'acquired_by' => Auth::user()->userable->id,
+        ]);
 
-            $order = Order::findOrFail($id);
-            $order->update([
-                'state_id' => $state_id,
-                'acquired_by' => Auth::user()->userable->id,
-            ]);
-        }
+        return redirect('/');
     }
 
 

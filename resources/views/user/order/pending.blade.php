@@ -25,6 +25,7 @@
             <td>
                 <div class="btn-group" role="group" aria-label="...">
                     {!! Form::open(['url' => 'user/orders/'.$order->id, 'method' => 'PUT']) !!}
+                    <input type="hidden" name="state_id" value="2">
                     <button type="submit" class="btn btn-success btn-xs">Potrdi</button>
                     {!! Form::close() !!}
                     {!! Form::open(['url' => 'user/orders/'.$order->id.'/deactivate', 'method' => 'PUT']) !!}

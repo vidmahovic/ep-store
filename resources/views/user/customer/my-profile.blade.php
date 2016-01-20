@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    {!! Form::model($customer, ['url' => ['customer/customers/'.$customer->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($customer, ['url' => ['customer/users/'.$customer->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
 
                     <input type="hidden" name="id" value="{{ $customer->user->id }}">
 
