@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function settings()
     {
         if (auth()->user()->hasRole('customer')) {
-            return view('user.customer.edit')->with('customer', auth()->user()->userable);
+            return view('user.customer.my-profile')->with('customer', auth()->user()->userable);
         }
 
         return view('user.edit')->with('user', auth()->user());

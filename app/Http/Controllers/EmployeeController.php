@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     {
         //$this->middleware('admin');
         //$this->middleware('employee');
-        //$this->middleware('employee', ['only' => ['edit', 'update', 'show']]);
+        $this->middleware('admin');
     }
 
     /**

@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    {!! Form::model($customer, ['url' => ['user/customers/'.$customer->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($customer, ['url' => ['customer/customers/'.$customer->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
                     <input type="hidden" name="id" value="{{ $customer->user->id }}">
 
@@ -63,15 +63,15 @@
                         </div>
                     </div>
 
-                        <br><br>
+                    <br><br>
 
                     <div class="pull-right">
                         <a href="{{ URL::previous() }}" class="btn btn-default" role="button">Prekliči</a>
                         {!! Form::reset('Pobriši vnose', ['class' => 'btn btn-warning']) !!}
                         {!! Form::submit('Posodobi', ['class' => 'btn btn-success']) !!}</div>
-                    </div>
+                </div>
 
-                    {!! Form::close() !!}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

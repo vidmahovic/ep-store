@@ -20,8 +20,8 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('customer', ['only' => ['show']]);
+        $this->middleware('employee');
+        //$this->middleware('customer', ['only' => ['show', 'edit', 'update']]);
         //$this->middleware('employee');
     }
 
@@ -121,7 +121,7 @@ class CustomerController extends Controller
 
         $customer->user()->save($user);
 
-        return redirect('user')->with('message', 'Podatki so bili uspešno posodobljeni.');
+        return redirect('/')->with('message', 'Podatki so bili uspešno posodobljeni.');
 
     }
 

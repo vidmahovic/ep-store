@@ -28,9 +28,9 @@ Route::group(['prefix' => 'api/v1/'], function() {
 
 Route::group(['prefix' => 'customer', 'middleware' => ['auth', 'customer']], function() {
     Route::get('/', 'HomeController@index');
-    Route::put('customers/{customers}', 'CustomerController@update');
+    Route::put('customers/{customers}', ['middleware' => 'auth', 'uses' => 'CustomerController@update']);
     Route::get('my-profile', 'HomeController@profile');
-    Route::get('my-settings', 'CustomerController@edit');
+    Route::get('my-settings', 'HomeController@settings');
     Route::get('my-orders', 'HomeController@orders');
     Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
