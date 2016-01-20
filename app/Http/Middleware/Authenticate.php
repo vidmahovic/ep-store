@@ -45,7 +45,7 @@ class Authenticate
 
             if(config('app.client_certificate')) {
 
-                if(isset($_SERVER['CLIENT_CERTIFICATE']) && $_SERVER['CLIENT_CERTIFICATE']) {
+                if(isset($_SERVER['REDIRECT_SSL_CLIENT_CERT']) || isset($_SERVER['SSL_CLIENT_CERT'])) {
 
                     $client_email = $_SERVER['SSL_CLIENT_S_DN_Email'];
                     $client_org_unit = $_SERVER['SSL_CLIENT_S_DN_OU'];
