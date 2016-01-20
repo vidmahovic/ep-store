@@ -140,7 +140,7 @@ class CustomerController extends Controller
 
         $customer->delete();
         $customer->user->delete();
-
+        return redirect()->back();
     }
 
     public function activate($id) {
@@ -150,6 +150,6 @@ class CustomerController extends Controller
 
         $customer->restore();
         $user->restore();
-
+        return redirect()->back();
     }
 }
