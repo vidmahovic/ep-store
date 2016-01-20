@@ -35,7 +35,7 @@ class AuthController extends Controller
     }
     use ThrottlesLogins;
 
-    protected $redirectTo = '/customer/';
+    protected $redirectTo = '/user/';
 
     /**
      * Create a new authentication controller instance.
@@ -137,6 +137,7 @@ class AuthController extends Controller
     }
 
     public function authenticated($request, User $user) {
+
         if($user->hasRole('customer')) {
             $this->redirectTo = '/customer/';
         }
