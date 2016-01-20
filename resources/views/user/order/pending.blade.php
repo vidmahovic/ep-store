@@ -23,13 +23,17 @@
             <td>{{$order->created_at}}</td>
             <td><a href="{{ route('user.customers.show', [$order->ordered_by]) }}">{{$order->subscriber->user->name }} {{ $order->subscriber->user->surname }}</a></td>
             <td>
-                <div class="btn-group" role="group" aria-label="...">
-                    {!! Form::open(['url' => 'user/orders/'.$order->id, 'method' => 'PUT']) !!}
-                    <button type="submit" class="btn btn-success btn-xs">Potrdi</button>
-                    {!! Form::close() !!}
-                    {!! Form::open(['url' => 'user/orders/'.$order->id.'/deactivate', 'method' => 'PUT']) !!}
-                    <button type="submit" class="btn btn-warning btn-xs">Prekliči</button>
-                    {!! Form::close() !!}
+                <div class="row">
+                    <div class="col col-sm-6">
+                        {!! Form::open(['url' => 'user/orders/'.$order->id, 'method' => 'PUT']) !!}
+                        <button type="submit" class="btn btn-success btn-xs">Potrdi</button>
+                        {!! Form::close() !!}
+                    </div>
+                    <div class="col col-sm-6">
+                        {!! Form::open(['url' => 'user/orders/'.$order->id.'/deactivate', 'method' => 'PUT']) !!}
+                        <button type="submit" class="btn btn-warning btn-xs">Prekliči</button>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </td>
         </tr>
