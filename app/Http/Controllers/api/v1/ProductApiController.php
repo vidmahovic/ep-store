@@ -17,7 +17,10 @@ class ProductApiController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return [
+            "items" => Product::all(),
+            "status" => "success"
+        ];
     }
 
     /**
@@ -44,12 +47,15 @@ class ProductApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($product)
     {
-        return Product::findOrFail($id);
+        return [
+            "item" => Product::findOrFail($product),
+            "status" => "success"
+        ];
     }
 
     /**

@@ -20,7 +20,7 @@ Route::get('register/confirm/{token}', 'Auth\AuthController@confirmEmail');
 Route::group(['prefix' => 'api/v1/'], function() {
     // list available API routes
     Route::get('products', 'api\v1\ProductApiController@index');
-    Route::get('products/{products}', 'api\v1\ProductApiController@show');
+    Route::get('products/{product}', 'api\v1\ProductApiController@show');
 });
 
 // id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
