@@ -17,7 +17,15 @@
                                 </ul>
                             </div>
                         @endif
-
+                        @if(count($error_message) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($error_message->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                        @endif
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

@@ -39,7 +39,7 @@
                 @endif
                 @if (Auth::user())
                     @if(Auth::user()->hasRole('customer'))
-                        <li><a href="{{ url('/user/my-orders') }}">Pretekli nakupi</a></li>
+                        <li><a href="{{ url('/customer/my-orders') }}">Pretekli nakupi</a></li>
                     @endif
                     @if (Auth::user()->hasRole('employee'))
                         <li class="dropdown">
@@ -77,9 +77,17 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             @if(! Auth::user()->hasRole('admin'))
-                                <li><a href="{{ url('user/my-profile') }}">Moj profil</a></li>
+                                @if(Auth::user()->hasRole('employee'))
+                                    <li><a href="{{ url('user/my-profile') }}">Moj profil</a></li>
+                                @else
+                                    <li><a href="{{ url('customer/my-profile') }}">Moj profil</a></li>
+                                @endif
                             @endif
-                            <li><a href="{{ url('user/my-settings') }}">Nastavitve</a></li>
+                            @if(Auth::user()->hasRole('customer'))
+                                    <li><a href="{{ url('customer/my-settings') }}">Nastavitve</a></li>
+                            @else
+                                <li><a href="{{ url('user/my-settings') }}">Nastavitve</a></li>
+                            @endif
                             <li><a href="{{ url('/auth/logout') }}">Odjava</a></li>
                         </ul>
                     </li>

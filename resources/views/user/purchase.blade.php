@@ -41,7 +41,7 @@
                                     <br>
                                     <br>
                                 </div>
-                                {!! Form::open(['route' => 'user.orders.store', 'method' => 'POST']) !!}
+                                {!! Form::open(['url' => 'customer/orders', 'method' => 'POST']) !!}
                                     <button type="submit" class="btn btn-success pull-right">Zaključi nakup</button>
                                 {!! Form::close() !!}
                                 {{--<a href="#" id="buy" class="btn btn-success pull-right">Zaključi nakup</a>--}}

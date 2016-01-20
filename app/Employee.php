@@ -9,6 +9,8 @@ class Employee extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['id', 'deleted_at'];
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

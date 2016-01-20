@@ -15,8 +15,8 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('employee', ['except' => 'show']);
+        //$this->middleware('auth');
+        //$this->middleware('employee', ['except' => 'show']);
     }
 
 
@@ -56,6 +56,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+
         Product::create([
             'name' => $request->get('name'),
             'serial_num' => $request->get('serial_num'),
@@ -90,7 +91,6 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-
         return view('user.product.edit')->with('product', $product);
     }
 
@@ -102,9 +102,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, $product)
     {
-        //
+        $product->update($request->except('id'));
+        return redirect('/')->with('message', 'Produkt je bil uspešno posodobljen.');
     }
 
     /**

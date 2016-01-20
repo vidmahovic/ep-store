@@ -17,14 +17,14 @@
                         </div>
                     @endif
 
-                    {!! Form::model($product, ['route' => ['user.employees.update', $product->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+                    {!! Form::model($product, ['route' => ['user.products.update', $product->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
                     <input type="hidden" name="id" value="{{ $product->id }}">
 
                     <div class="form-group">
                         {!! Form::label('name', 'Ime', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::email('name', $product->name, ['class' => 'form-control']) !!}
+                            {!! Form::text('name', $product->name, ['class' => 'form-control']) !!}
                         </div>
                     </div>
 
@@ -48,13 +48,6 @@
                                 {!! Form::text('manufacturer', $product->manufacturer, ['class' => 'form-control']) !!}
                             </div>
                         </div>
-
-                        {{--<div class="form-group">
-                            {!! Form::label('image_path', 'Slika', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::text('image_path', $product->image_path, ['class' => 'form-control']) !!}
-                            </div>
-                        </div>--}}
 
                         <div class="form-group">
                             {!! Form::label('stock', 'Zaloga', ['class' => 'col-md-4 control-label']) !!}

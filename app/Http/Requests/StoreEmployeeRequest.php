@@ -28,7 +28,7 @@ class StoreEmployeeRequest extends Request
             'email' => 'required|email|unique:users,email',
             'name' => 'required|alpha|string|min:2|max:255',
             'surname' => 'required|alpha|string|min:2|max:255',
-            'password' => 'required:min:6'
+            'password' => 'required|min:6'
         ];
     }
 }

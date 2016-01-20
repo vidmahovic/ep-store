@@ -82,7 +82,7 @@ class OrderController extends Controller
 
         event(new OrderWasPurchased($order));
 
-        return redirect('user/purchase/success');
+        return redirect('customer/purchase/success');
     }
 
     /**

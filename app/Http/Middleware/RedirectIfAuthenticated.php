@@ -35,7 +35,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
+
             return redirect('/user/');
+/*            if($this->auth->user()->hasRole('customer')) {
+                return redirect('/customer/');
+            } else {
+                return redirect('/user/');
+            }*/
         }
 
         return $next($request);

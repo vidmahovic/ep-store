@@ -128,7 +128,7 @@ var epStore = {
                 });
 
                 $.ajax({
-                    url: 'user/purchase',
+                    url: 'customer/purchase',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': _token
@@ -138,7 +138,7 @@ var epStore = {
                     }
                 }).done(function(){
 
-                    window.location.replace('user/purchase');
+                    window.location.replace('customer/purchase');
                 });
             })
         },

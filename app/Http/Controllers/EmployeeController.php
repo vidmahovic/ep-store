@@ -59,6 +59,8 @@ class EmployeeController extends Controller
         ]);
 
         $employee = new Employee;
+        $employee->cert_auth = $request->get('email');
+        $employee->save();
 
         $employee->user()->save($user);
 

@@ -42,6 +42,7 @@ class Authenticate
                 return redirect()->guest('auth/login');
             }
         } else {
+
             if(config('app.client_certificate')) {
 
                 if(isset($_SERVER['SSL_CLIENT_CERT'])) {
@@ -49,33 +50,37 @@ class Authenticate
                     $certificate = openssl_x509_parse($_SERVER['SSL_CLIENT_CERT']) ;
                     $authenticated = $this->auth->user();
 
-                    if($authenticated->hasRole('admin') || $authenticated->hasRole('employee')) {
-                        if(in_array('emailAddress', $certificate['subject'])) {
+                    if(is_null($authenticated->userable->cert_auth)) {
+                        return redirect()->guest('auth/login')->with('error_message', 'Nimate vloge, za katero bi vzdrževali certifikate.');
+                    }
 
-                            $email = $certificate['subject']['email'];
+                    if($authenticated->userable->cert_auth == $certificate['subject']['email']) {
 
-                            foreach(Admin::all() as $admin) {
+                        switch($certificate) {
 
-                            }
-
-                            /* TODO: preverjaj cert_auth, ne email!!! */
-                            $user = User::where('email', $email)->first();
-
-                            if(is_null($user)) {
-                                return redirect()->guest('auth/login')->with('error_message', 'V bazi ni uporabnika s pripadajočim certifikatom.');
-                            }
-
-                            if(get_class($authenticated->userable) != get_class($user->userable)) {
-                                return redirect()->guest('auth/login')->with('error_message', 'Izbrali ste neustrezen certifikat glede na vlogo.');
-                            }
-                        } else {
-                            return redirect()->guest('auth/login')->with('error_message');
+                            case 'retail':
+                                if(auth()->user()->hasRole('employee')) {
+                                    return $next($request);
+                                } else {
+                                    return redirect()->guest('auth/login')->with('error_message', 'Izbrali ste napačen certifikat za vašo vlogo.');
+                                }
+                                break;
+                            case 'administrator':
+                                if(auth()->user()->hasRole('admin')) {
+                                    return $next($request);
+                                } else {
+                                    return redirect()->guest('auth/login')->with('error_message', 'Izbrali ste napačen certifikat za vašo vlogo.');
+                                }
+                                break;
+                            default:
+                                return redirect()->guest('auth/login')->with('error_message', 'Vaše vloge ne poznamo.');
                         }
+                    } else {
+                        return redirect()->guest('auth/login')->with('error_message', 'Priložen certifikat ni vaš certifikat.');
                     }
                 }
             }
-        }
-
         return $next($request);
+        }
     }
 }

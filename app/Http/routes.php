@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', ['middleware' => 'guest', 'uses' => 'HomeController@index']);
 Route::get('register/confirm/{token}', 'Auth\AuthController@confirmEmail');
 
-
 Route::group(['prefix' => 'api/v1/'], function() {
     // list available API routes
     Route::get('products', 'api\v1\ProductApiController@index');
@@ -27,7 +26,24 @@ Route::group(['prefix' => 'api/v1/'], function() {
 // id could be a concatenated name and surname string identifier. Not yet implemented, so you can type-hint anything.
 // Calling convention (example): store.dev/1/users
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'customer', 'middleware' => ['auth', 'customer']], function() {
+    Route::get('/', 'HomeController@index');
+    Route::put('customers/{customers}', 'CustomerController@update');
+    Route::get('my-profile', 'HomeController@profile');
+    Route::get('my-settings', 'CustomerController@edit');
+    Route::get('my-orders', 'HomeController@orders');
+    Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
+    Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
+    Route::post('purchase/buy', 'PurchaseController@create');
+    Route::get('purchase/success', 'PurchaseController@success');
+
+    Route::post('orders', 'OrderController@store');
+
+
+});
+
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth', 'no-customer']], function() {
 
     Route::put('customers/{customers}/deactivate', 'CustomerController@deactivate');
     Route::put('customers/{id}/activate', 'CustomerController@activate');
@@ -52,10 +68,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::put('products/{products}/deactivate', 'ProductController@deactivate');
     Route::resource('products', 'ProductController');
 
-    Route::get('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@index']);
-    Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
-    Route::post('purchase/buy', 'PurchaseController@create');
-    Route::get('purchase/success', 'PurchaseController@success');
     Route::get('my-orders', 'HomeController@orders');
     Route::get('my-settings', 'HomeController@settings');
     Route::get('my-profile', 'HomeController@profile');

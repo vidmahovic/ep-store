@@ -20,22 +20,27 @@ class ProductPolicy
         //
     }
 
-    public function before(User $user, $ability) {
-        if($user->isAdmin()) {
+    public function before(User $user, $ability)
+    {
+        if(auth()->user()->hasRole('employee')) {
             return true;
         }
     }
 
     public function update(User $user, Product $product) {
-        // check if user is admin or employee
-        // if so, allow the product to be updated
+
+        return auth()->user()->hasRole('employee');
     }
 
     public function create() {
-
+        return auth()->user()->hasRole('employee');
     }
 
-    public function delete() {
+    public function deactivate() {
+        return auth()->user()->hasRole('employee');
+    }
 
+    public function activate() {
+        return auth()->user()->hasRole('employee');
     }
 }

@@ -29,11 +29,13 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers{
         postRegister as traitPostRegister;
-        getCredentials as traitAuthenticatesUsers; // to extend a method from the trait
+        getCredentials as traitAuthenticatesUsers;
+        //redirectPath as traitRedirectsUsers;
+        // to extend a method from the trait
     }
     use ThrottlesLogins;
 
-    protected $redirectTo = '/user/';
+    protected $redirectTo = '/customer/';
 
     /**
      * Create a new authentication controller instance.
@@ -64,7 +66,7 @@ class AuthController extends Controller
 
         event(new CustomerWasRegistered($customer, $request->get('password')));
 
-        return redirect('/')->with('message', 'Registracija je bila uspešna! Prosimo, preverite svojo elektronsko pošto in prek povezave dokažete pristnost.');
+        return redirect('/')->with('message', 'Registracija je bila uspešna! Prosimo, preverite svojo elektronsko pošto in prek povezave dokažite pristnost.');
     }
 
 
@@ -133,4 +135,13 @@ class AuthController extends Controller
             'verified' => true,
         ];
     }
+
+    public function authenticated($request, User $user) {
+        if($user->hasRole('customer')) {
+            $this->redirectTo = '/customer/';
+        }
+
+        return redirect()->intended($this->redirectPath());
+    }
+
 }
