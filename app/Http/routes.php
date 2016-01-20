@@ -36,6 +36,7 @@ Route::group(['prefix' => 'customer', 'middleware' => ['auth', 'customer']], fun
     Route::post('purchase', ['as' => 'purchase', 'uses' => 'PurchaseController@store']);
     Route::post('purchase/buy', 'PurchaseController@create');
     Route::get('purchase/success', 'PurchaseController@success');
+    Route::put('update/{id}', 'JustController@update');
 
     Route::post('orders', 'OrderController@store');
 

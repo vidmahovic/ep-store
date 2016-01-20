@@ -71,18 +71,9 @@ class UserController extends Controller
      * @param UpdateUserRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
-
         $user = User::findOrFail($request->get('id'));
-
-        if($user->userable instanceof Customer) {
-            $customer = Customer::findOrFail($user->userable_id);
-            $customer->street = $request->get('street');
-            $customer->phone = $request->get('phone');
-            $customer->city_id = $request->get('city_id');
-            $customer->save();
-        }
 
         $user->update($request->except('id'));
 
